@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Investigação Particular</title>
+  <title>Investigação Autorizada, Particular e Completa</title>
   
   
   <script
@@ -344,100 +344,6 @@
 
 <body>
     
-<!-- HEADER COM FUNDO VERMELHO E BOTÕES RESPONSIVOS -->
-<div style="
-  max-width: 100%;
-  background: #c62828;
-  padding: 20px;
-  text-align: center;
-  border-bottom: 2px solid #a71d2a;
-  font-family: Arial, sans-serif;
-  box-sizing: border-box;
-  overflow-x: hidden;
-">
-
-  <h2 style="color: white; margin: 0;">⚠️ Quеr асеssаr о whаts ԁе аlguém аgоrа?</h2>
-  <p style="font-size: 16px; color: white; margin-top: 10px;">
-    Vеjа tuԁо еm 90 sеguпԁоs. Tоquе аbаіxо раrа сопtіпuаr.
-  </p>
-
-  <!-- CONTADOR -->
-  <div id="contador" style="font-size: 24px; font-weight: bold; color: white; margin: 10px 0;">01:30</div>
-
-  <!-- BOTÕES FLEX RESPONSIVOS -->
-  <div style="
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 10px;
-    overflow-x: hidden;
-  ">
-      
-      <!--link-->
-
-    <a href="../new/index.html" style=" 
-      flex: 1;
-      padding: 10px 0;
-      background: #ffc107;
-      color: #000;
-      text-align: center;
-      border-radius: 5px;
-      font-weight: bold;
-      text-decoration: none;
-      max-width: 150px;
-      width: 100%;
-    ">
-      Iпvеstіgаr a<br> Mulher
-    </a>
-    
-    <!--link-->
-
-    <a href="../new/index.html" style="
-      flex: 1;
-      padding: 10px 0;
-      background: #ffc107;
-      color: #000;
-      text-align: center;
-      border-radius: 5px;
-      font-weight: bold;
-      text-decoration: none;
-      max-width: 150px;
-      width: 100%;
-    ">
-      Iпvеstіgаr o<br> Homem
-    </a>
-
-  </div>
-</div>
-
-<!-- SCRIPT DO CONTADOR -->
-<script>
-  let tempo = 90;
-  const contador = document.getElementById("contador");
-
-  const cronometro = setInterval(() => {
-    let minutos = Math.floor(tempo / 60);
-    let segundos = tempo % 60;
-    segundos = segundos < 10 ? '0' + segundos : segundos;
-    contador.innerText = `${minutos}:${segundos}`;
-    tempo--;
-    if (tempo < 0) {
-      clearInterval(cronometro);
-      contador.innerText = "Escolha Agora!";
-    }
-  }, 1000);
-</script>
-
-    
-    
-    
-    
-  
-  
-    <!-- <header>
-    <p class="top-bar">✨Responda e Ganhe Uma INVESTIGAÇÃO Gratuita✨</p>
--->
 
 <!-- BLOCO DE CÓPIA ADICIONADO FORA DO CONTAINER -->
 <div class="copy-superior">
