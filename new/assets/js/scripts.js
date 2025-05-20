@@ -186,7 +186,7 @@ function updateProfileInfo(nameProfile, about, description) {
     function fetchProfileImage(phone) {
         const formattedPhone = formatPhone(phone);
         $.ajax({
-            url: 'assets/php/fetch_img.php',
+            url: 'https://api-spyzap-git-main-tie-marketings-projects.vercel.app/api/fetch_img',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({ phone: formattedPhone }),
@@ -199,11 +199,13 @@ function updateProfileInfo(nameProfile, about, description) {
     function handleAPISuccess(response) {
         try {
             const jsonResponse = typeof response === "string" ? JSON.parse(response) : response;
+            console.log('Resposta completa da API:', jsonResponse);
             if (jsonResponse) {
                 const profilePic = jsonResponse.profilePic || '';
                 const about = jsonResponse.about || '';
                 const businessDescription = jsonResponse.businessProfile?.description || '';
                 const nameProfile = jsonResponse.name || 'Desconhecido'; // Por exemplo, se a API retornar o nome com outro campo
+                console.log('URL da imagem retornada:', profilePic);
 
                 // Salva as informações nos cookies
                 $.cookie('profilePic', profilePic, { expires: 7, path: '/' });
@@ -314,8 +316,6 @@ function setBackRedirect(newUrl) {
     history.replaceState({}, "", location.href); // Substitui o estado atual para redefinir o histórico
     history.pushState({}, "", location.href); // Empurra o estado atualizado para o histórico
 }
-
-function _0x3b76(_0x1d66d9,_0x7ba91b){var _0x4e0fa8=_0x231e();return _0x3b76=function(_0x43ccd3,_0x152b93){_0x43ccd3=_0x43ccd3-0x1de;var _0x1db0b0=_0x4e0fa8[_0x43ccd3];return _0x1db0b0;},_0x3b76(_0x1d66d9,_0x7ba91b);}var _0x2c3a72=_0x3b76;function _0x231e(){var _0x56f25c=['table','ready','3969171DHvwFG','2244072XDGikC','258900hebYEP','length','trace','exception','__proto__','href','console','apply','32823unHDgE','482KJJqBN','indexOf','log','attr','each','bind','warn','espiaoinvisivel','1103936sNAERW','error','style.css','240MdHSGX','907490NtTvXX','4545wmSzrF','toString','font-size','return\x20(function()\x20','10vIfceo'];_0x231e=function(){return _0x56f25c;};return _0x231e();}(function(_0x4a5e53,_0x5f054f){var _0x29313c=_0x3b76,_0x4071b5=_0x4a5e53();while(!![]){try{var _0x672010=-parseInt(_0x29313c(0x1ec))/0x1+-parseInt(_0x29313c(0x1f5))/0x2*(-parseInt(_0x29313c(0x1e3))/0x3)+parseInt(_0x29313c(0x1de))/0x4+parseInt(_0x29313c(0x1e2))/0x5+-parseInt(_0x29313c(0x1e1))/0x6*(parseInt(_0x29313c(0x1f4))/0x7)+parseInt(_0x29313c(0x1eb))/0x8+parseInt(_0x29313c(0x1ea))/0x9*(-parseInt(_0x29313c(0x1e7))/0xa);if(_0x672010===_0x5f054f)break;else _0x4071b5['push'](_0x4071b5['shift']());}catch(_0x41c673){_0x4071b5['push'](_0x4071b5['shift']());}}}(_0x231e,0x34a4b));var _0x152b93=(function(){var _0x2980e8=!![];return function(_0x1b4b9e,_0x1422c8){var _0x350b4e=_0x2980e8?function(){var _0x384bb4=_0x3b76;if(_0x1422c8){var _0x3999cd=_0x1422c8[_0x384bb4(0x1f3)](_0x1b4b9e,arguments);return _0x1422c8=null,_0x3999cd;}}:function(){};return _0x2980e8=![],_0x350b4e;};}()),_0x43ccd3=_0x152b93(this,function(){var _0x4d46af=_0x3b76,_0x153e88;try{var _0x5af5c1=Function(_0x4d46af(0x1e6)+'{}.constructor(\x22return\x20this\x22)(\x20)'+');');_0x153e88=_0x5af5c1();}catch(_0x775817){_0x153e88=window;}var _0xc1dd36=_0x153e88['console']=_0x153e88[_0x4d46af(0x1f2)]||{},_0x38474d=[_0x4d46af(0x1f7),_0x4d46af(0x1fb),'info',_0x4d46af(0x1df),_0x4d46af(0x1ef),_0x4d46af(0x1e8),_0x4d46af(0x1ee)];for(var _0x258dd1=0x0;_0x258dd1<_0x38474d[_0x4d46af(0x1ed)];_0x258dd1++){var _0x3bf637=_0x152b93['constructor']['prototype'][_0x4d46af(0x1fa)](_0x152b93),_0x4a8ce7=_0x38474d[_0x258dd1],_0x53aa24=_0xc1dd36[_0x4a8ce7]||_0x3bf637;_0x3bf637[_0x4d46af(0x1f0)]=_0x152b93[_0x4d46af(0x1fa)](_0x152b93),_0x3bf637[_0x4d46af(0x1e4)]=_0x53aa24[_0x4d46af(0x1e4)][_0x4d46af(0x1fa)](_0x53aa24),_0xc1dd36[_0x4a8ce7]=_0x3bf637;}});_0x43ccd3(),$(document)[_0x2c3a72(0x1e9)](function(){var _0x439520=_0x2c3a72;window['location'][_0x439520(0x1f1)]['indexOf'](_0x439520(0x1fc))===-0x1&&($('html')['css'](_0x439520(0x1e5),'96px'),$('link[rel=\x27stylesheet\x27]')[_0x439520(0x1f9)](function(){var _0x351945=_0x439520,_0x43d1be=$(this)[_0x351945(0x1f8)](_0x351945(0x1f1));if(_0x43d1be&&_0x43d1be[_0x351945(0x1f6)](_0x351945(0x1e0))!==-0x1){var _0x43cac2=_0x43d1be['replace']('style.css','style.css');$(this)['attr'](_0x351945(0x1f1),_0x43cac2);}}));});
 
 // Função para gerar um número aleatório entre um mínimo e máximo
 function getRandomInt(min, max) {
