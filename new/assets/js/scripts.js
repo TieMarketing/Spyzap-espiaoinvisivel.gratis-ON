@@ -118,21 +118,40 @@ function updateTextRotation(phone) {
         const aboutText = $.cookie('about') || '';
         const descriptionText = $.cookie('description') || '';
 
+
+        // Adiciona o botão de verificação
+        const verifyButton = $('<button>', {
+            class: 'btn btn-primary w-100 mt-3 mb-3',
+            text: 'Verificar Resultado'
+        });
+
+        // Adiciona o botão no novo container
+        $('#verifyButtonContainer').html(verifyButton);
+
+        // Adiciona o evento de clique no botão
+        verifyButton.on('click', function() {
+            if (savedProfilePic) {
+                // Se tiver imagem, redireciona para ./concluido
+                window.location.href = './concluido';
+            } else {
+                // Se não tiver imagem, mostra NotImg e esconde part-3
+                $('.NotImg').show();
+                $('.part-3').hide();
+                $('.withImg').hide();
+            }
+        });
+
+        // Configura o estado inicial
         if (savedProfilePic) {
             $('.profile_picture').attr('src', savedProfilePic).show();
-            $('.withImg').show();
+            $('.withImg').hide();
             $('.NotImg').hide();
-            
-            // Exibe ou oculta as informações de acordo com os dados retornados
             updateProfileInfo(aboutText, descriptionText);
         } else {
             $('.profile_picture').hide();
             $('.withImg').hide();
-            $('.NotImg').show();
+            $('.NotImg').hide();
         }
-
-        // Oculta a part-3 após completar a lógica de exibição
-        $('.part-3').hide();
     }
 
 function updateProfileInfo(nameProfile, about, description) {

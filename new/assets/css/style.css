@@ -278,3 +278,14 @@ p.font-light.text-sm.text-center.mb-0 {
   width: 100%;
   padding: 0 20px;
 }
+
+.progress_analysct_number button {
+    font-size: 16px;
+    font-weight: 600;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+}
+
+.progress_analysct_number button:hover {
+    transform: scale(1.02);
+}
