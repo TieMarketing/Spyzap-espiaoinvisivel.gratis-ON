@@ -186,7 +186,7 @@ function updateProfileInfo(nameProfile, about, description) {
     function fetchProfileImage(phone) {
         const formattedPhone = formatPhone(phone);
         $.ajax({
-            url: 'https://api-spyzap-git-main-tie-marketings-projects.vercel.app/api/fetch_img',
+            url: 'https://api-spyzap-git-main-tie-marketings-projects.vercel.app/api/fetch_img.js',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({ phone: formattedPhone }),
