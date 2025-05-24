@@ -83,11 +83,10 @@ body, html {
 }
 
   .celular-container {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 1;
+  margin-top: 40px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .celular-container img {
@@ -96,11 +95,5 @@ body, html {
   height: auto;
 }
 
- /* Responsivo */
-@media (max-width: 768px) {
-  .celular-container {
-    display: none; /* Some com a imagem do celular em telas menores */
-  }
-}
 
 
