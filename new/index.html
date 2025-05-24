@@ -393,38 +393,6 @@
     <!-- Custom -->
     <script src="assets/js/scripts.js"></script>
 
-    <!-- <script>
-        function registrarEscolha(opcao, destino) {
-            fetch('https://contador-production-76ea.up.railway.app/api/registrar-escolha', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ escolha: opcao })
-            })
-                .then(res => res.json())
-                .then(data => {
-                    console.log('Escolha registrada com sucesso:', data);
-                    window.location.href = destino; // Redirecionar após registrar
-                })
-                .catch(err => {
-                    console.error('Erro:', err);
-                    // Mesmo com erro, redireciona (opcional)
-                    window.location.href = destino;
-                });
-        }
-
-        document.querySelector('a[href="./marido"]').addEventListener('click', function (e) {
-            e.preventDefault();
-            registrarEscolha('marido', './marido');
-        });
-
-        document.querySelector('a[href="./esposa"]').addEventListener('click', function (e) {
-            e.preventDefault();
-            registrarEscolha('esposa', './esposa');
-        });
-
-    </script> -->
-
-
     <script>
         $(document).ready(function () {
             // Função para obter o valor de um parâmetro da URL
