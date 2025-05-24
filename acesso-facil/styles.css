@@ -82,3 +82,26 @@ body, html {
   transform: scale(1.02);
 }
 
+<style>
+  .celular-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Ocupa a altura toda da tela */
+  }
+
+  .celular-container img {
+    max-width: 100%;
+    width: 360px; /* Largura padrão de um celular */
+    height: auto;
+  }
+
+  /* Responsivo para telas muito pequenas */
+  @media (max-width: 400px) {
+    .celular-container img {
+      width: 90%;
+    }
+  }
+</style>
+
+
