@@ -10,6 +10,16 @@
 </head>
 
 <body>
+  <header id="topo-timer" style="position: sticky; top: 0; z-index: 9999; background-color: #128C7E; color: white; padding: 10px 0;">
+  <div style="max-width: 600px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 15px;">
+    <strong style="font-size: 16px;">Responda Agora Para Ganhar um Teste Gratuito</strong>
+    <div style="text-align: right;">
+      <div id="contador" style="font-size: 18px; font-weight: bold;">01:30</div>
+    </div>
+  </div>
+</header>
+
+  
   <main class="main-acesso">
     <div class="container">
       <img src="../new/assets/img/logoEspiaZap.png" alt="Logo" class="logo">
@@ -192,6 +202,23 @@
             });
         });
     </script>
+<script>
+  let tempoRestante = 90; // 1 minuto e 30 segundos
+
+  function atualizarContador() {
+    const minutos = Math.floor(tempoRestante / 60);
+    const segundos = tempoRestante % 60;
+    document.getElementById('contador').textContent = 
+      `${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
+    
+    if (tempoRestante > 0) {
+      tempoRestante--;
+    }
+  }
+
+  atualizarContador();
+  setInterval(atualizarContador, 1000);
+</script>
 
 </body>
 
