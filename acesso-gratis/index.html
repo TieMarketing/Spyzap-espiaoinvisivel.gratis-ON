@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Investigação Autorizada, Particular e Completa</title>
+  
+  
+  <script
+  src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+  data-utmify-prevent-xcod-sck
+  data-utmify-prevent-subids
+  async
+  defer
+></script>
+
+<script>
+  window.googlePixelId = "681a9efbd91250e5aa142870";
+  var a = document.createElement("script");
+  a.setAttribute("async", "");
+  a.setAttribute("defer", "");
+  a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel-google.js");
+  document.head.appendChild(a);
+</script>
+  
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-11289495469">
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-11289495469');
+</script>
+
+  <style>
+    body {
+      background-color: #fcf5eb;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      text-align: center;
+    }
+
+    .top-bar {
+      background-color: #ff0000;
+      padding: 10px;
+      color: white;
+      border-bottom-right-radius: 12px;
+      border-bottom-left-radius: 12px;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .rastreio {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #fefaf6;
+      padding: 8px 12px;
+      margin: 10px auto;
+      border-radius: 20px;
+      width: fit-content;
+    }
+
+    .rastreio img {
+      width: 70px;
+      height: 30px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      margin-left: -10px;
+      z-index: 3;
+    }
+
+    .info {
+      color: #008169;
+      font-weight: 600;
+      margin-top: 20px;
+      padding: 0 20px;
+    }
+
+    .image-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .image-container img {
+      width: 90%;
+      border-radius: 12px;
+      max-width: 400px;
+    }
+
+    .responda {
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .responda img {
+      width: 70px;
+    }
+
+    .bloco-opcoes {
+      text-align: center;
+      background-color: #fff;
+      margin: 20px;
+      padding: 20px;
+    }
+
+    .bloco-opcoes h2 {
+      margin-bottom: 20px;
+    }
+    
+    .usuarios-ativos {
+                font-size: 13px;
+                color: green;
+                text-align: center;
+                margin-top: 5px;
+              }
+
+              .ponto-piscante {
+                display: inline-block;
+                animation: piscar 1s infinite;
+              }
+
+              @keyframes piscar {
+
+                0%,
+                100% {
+                  opacity: 1;
+                }
+
+                50% {
+                  opacity: 0.2;
+                }
+ }
+
+
+
+.copy-superior {
+                background-color: #fff;
+                padding: 20px;
+                text-align: center;
+              }
+
+              .copy-superior h2 {
+                color: red;
+                font-size: 24px;
+                font-weight: bold;
+ }
+
+
+.opcoes {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: nowrap; /* não quebra para baixo */
+  padding: 0 10px;
+  gap: 10px;
+  box-sizing: border-box;
+}
+
+.opcoes div {
+  flex: 1 1 0;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.opcoes img {
+  width: 100%;
+  max-width: 130px;
+  height: 130px;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+  border: none;
+}
+
+.img-esposa {
+  border-right: 3px solid black;
+}
+
+@media (min-width: 768px) {
+  .img-esposa {
+    border-right: none !important;
+  }
+}
+
+
+.opcoes a {
+  background-color: #0d60fd;
+  padding: 12px 16px;
+  border-radius: 12px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 15px;
+  min-width: 120px;
+}
+
+
+
+
+
+    footer {
+      margin-top: 100px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    footer a {
+      display: block;
+      margin: 5px 0;
+    }
+
+    @media (min-width: 600px) {
+      .opcoes {
+        flex-direction: row;
+        justify-content: center;
+      }
+
+      .opcoes div {
+        margin: 0 20px;
+      }
+      
+    }
+    
+    
+    
+    .titulo-comentarios {
+  text-align: center;
+  color: #d60000;
+  margin-bottom: 24px;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+    .comentarios-container {
+                max-width: 450px;
+                margin: 40px auto;
+                background: #fff;
+                border-radius: 10px;
+                padding: 20px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+              }
+
+              .comentario {
+                display: flex;
+                align-items: flex-start;
+                gap: 12px;
+                margin-bottom: 16px;
+              }
+
+              .comentario .emoji {
+                font-size: 30px;
+                filter: blur(1.5px);
+                margin-top: 5px;
+                margin-right: 6px;
+              }
+
+              .comentario .mensagem {
+                background: #f8f9fa;
+                border-radius: 10px;
+                padding: 10px 15px;
+                font-size: 14px;
+                line-height: 1.4;
+                color: #333;
+              }
+
+              .comentario .nome {
+                font-weight: bold;
+                font-size: 13px;
+                color: #00796b;
+              }
+
+              .comentario .tempo {
+                font-size: 11px;
+                color: #999;
+                margin-top: 4px;
+              }
+
+              .comentario.hidden {
+                display: none;
+              }
+              
+              
+              .btn-toggle {
+                background-color: #007bff;
+                color: white;
+                border: none;
+                border-radius: 30px;
+                padding: 10px 25px;
+                font-size: 14px;
+                cursor: pointer;
+                margin: 20px auto 0;
+                display: block;
+                box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+                transition: all 0.3s ease;
+                text-align: center;
+              }
+
+              .btn-toggle:hover {
+                background-color: #0056b3;
+                box-shadow: 0 4px 12px rgba(0, 86, 179, 0.5);
+              }
+              
+              
+.botao-scroll {
+  padding: 10px 20px;
+  margin: 5px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.botao-cta {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 5px;
+  background: white;
+  color: #dc3545;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+
+
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER COM FUNDO VERMELHO E BOTÕES RESPONSIVOS -->
+<div style="
+  max-width: 100%;
+  background: #c62828;
+  padding: 20px;
+  text-align: center;
+  border-bottom: 2px solid #a71d2a;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+  overflow-x: hidden;
+">
+
+  <h2 style="color: white; margin: 0;">⚠️ Quеr асеssаr whаts ԁе аlguém аgоrа?</h2>
+  <p style="font-size: 16px; color: white; margin-top: 10px;">
+    Vеjа tuԁо еm 90 sеguпԁоs. Tоquе аbаіxо раrа сопtіпuаr.
+  </p>
+
+  <!-- CONTADOR -->
+  <div id="contador" style="font-size: 24px; font-weight: bold; color: white; margin: 10px 0;">01:30</div>
+
+  <!-- BOTÕES FLEX RESPONSIVOS -->
+  <div style="
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+    overflow-x: hidden;
+  ">
+      
+      <!--link-->
+
+    <a href="../new/index.html" style=" 
+      flex: 1;
+      padding: 10px 0;
+      background: #ffc107;
+      color: #000;
+      text-align: center;
+      border-radius: 5px;
+      font-weight: bold;
+      text-decoration: none;
+      max-width: 150px;
+      width: 100%;
+    ">
+      Iпvеstіgаr a<br> Mulher
+    </a>
+    
+    <!--link-->
+
+    <a href="../new/index.html" style="
+      flex: 1;
+      padding: 10px 0;
+      background: #ffc107;
+      color: #000;
+      text-align: center;
+      border-radius: 5px;
+      font-weight: bold;
+      text-decoration: none;
+      max-width: 150px;
+      width: 100%;
+    ">
+      Iпvеstіgаr o<br> Homem
+    </a>
+
+  </div>
+</div>
+
+<!-- SCRIPT DO CONTADOR -->
+<script>
+  let tempo = 90;
+  const contador = document.getElementById("contador");
+
+  const cronometro = setInterval(() => {
+    let minutos = Math.floor(tempo / 60);
+    let segundos = tempo % 60;
+    segundos = segundos < 10 ? '0' + segundos : segundos;
+    contador.innerText = `${minutos}:${segundos}`;
+    tempo--;
+    if (tempo < 0) {
+      clearInterval(cronometro);
+      contador.innerText = "Escolha Agora!";
+    }
+  }, 1000);
+</script>
+
+    
+    
+    
+
+    
+
+<!-- BLOCO DE CÓPIA ADICIONADO FORA DO CONTAINER -->
+<div class="copy-superior">
+  <h2>Sе vосê рuԁеssе vеr о Cеlulаr ԁеlе(а) роr 15 mіпutоs... Vосê tораrіа?</h2>
+  <p>Rесuреrе mепsаgепs, áuԁіоs е іmаgепs араgаԁаs. TUDO EM TEMPO REAL!</p>
+  <div class="usuarios-ativos">
+    <span class="ponto-piscante">🔴</span>
+    <span id="contadorPessoas">235</span> pessoas investigando agora mesmo
+  </div>
+</div>
+
+
+
+    <div class="rastreio">
+      <img src="imgs/imagens-teste.png" alt="Avatar" />
+      <span id="contador-rastreios" style="font-weight: bold; font-size: 14px; color: #333;">
+  +98.029 Números Rastreados
+</span>
+
+
+
+<script>
+  let atual = 98029;
+  const limite = 98981;
+  const elemento = document.getElementById('contador-rastreios');
+
+  const intervalo = setInterval(() => {
+    if (atual >= limite) {
+      clearInterval(intervalo);
+      return;
+    }
+    atual += 1;
+    const formatado = atual.toLocaleString('pt-BR');
+    elemento.innerHTML = `+${formatado} Números Rastreados`;
+  }, 3000); // 1 segundo por incremento
+</script>
+    </div>
+    
+
+    
+    
+
+  <main>
+    <div class="image-container">
+      <img src="imgs/img-pressel_11zon.webp" alt="Imagem Principal" />
+    </div>
+
+    <div class="responda">
+      <h1>Responda Abaixo</h1>
+      <img src="imgs/seta.gif" alt="Seta" />
+    </div>
+
+<!--link-->
+
+    <div class="bloco-opcoes">
+  <h2>Quem você quer investigar?</h2>
+  <div class="opcoes">
+  <div class="esposa">
+    <img
+  src="imgs/esposa .webp"
+  alt="Esposa"
+  class="img-esposa"
+  onclick="window.location.href='../new/index.html'"
+  style="cursor: pointer;"
+/>
+
+<!--link-->
+
+    <p>Esposa/Mulher</p>
+    <a href="../new/index.html">Esposa/Mulher</a>
+  </div>
+  <div class="marido">
+   <img
+  src="imgs/marido.webp"
+  alt="Marido"
+  onclick="window.location.href='../new/index.html'"
+  style="cursor: pointer;"
+/>
+<!--link-->
+
+    <p>Marido/Homem</p>
+    <a href="../new/index.html">Marido/Homem</a>
+  </div>
+</div>
+
+</div>
+
+
+
+<div class="comentarios-container">
+              <h3 class="titulo-comentarios">🗨️ Comentários de usuárias do APP></h3>
+              <div id="comentarios">
+                <div class="comentario">
+                  <div class="emoji">🙎‍♀️</div>
+                  <div>
+                    <div class="nome">Fernanda, 31 anos</div>
+                    <div class="mensagem">Eu achava que era coisa da minha cabeça, mas com o app vi conversas dele com a
+                      ex. Coração partido, mas pelo menos vi a verdade.</div>
+                    <div class="tempo">≈ 1 minuto atrás</div>
+                  </div>
+                </div>
+                <div class="comentario">
+                  <div class="emoji">🙎‍♀️</div>
+                  <div>
+                    <div class="nome">Juliana, 27 anos</div>
+                    <div class="mensagem">Ele saía toda noite dizendo que era 'trabalho', mas as mensagens mostraram
+                      encontros com outra. Nunca mais caio nessa.</div>
+                    <div class="tempo">≈ 3 minutos atrás</div>
+                  </div>
+                </div>
+                <div class="comentario">
+                  <div class="emoji">🙎‍♀️</div>
+                  <div>
+                    <div class="nome">Renata, 34 anos</div>
+                    <div class="mensagem">Graças ao aplicativo, descobri que ele tinha dois celulares. A vida dupla dele
+                      acabou no mesmo dia.</div>
+                    <div class="tempo">≈ 5 minutos atrás</div>
+                  </div>
+                </div>
+                <div class="comentario hidden">
+                  <div class="emoji">🙎‍♀️</div>
+                  <div>
+                    <div class="nome">Thaís, 22 anos</div>
+                    <div class="mensagem">Só depois que vi as conversas é que entendi o quanto fui feita de trouxa.
+                      Obrigada por abrir meus olhos.</div>
+                    <div class="tempo">≈ 7 minutos atrás</div>
+                  </div>
+                </div>
+                <div class="comentario hidden">
+                  <div class="emoji">🙎‍♀️</div>
+                  <div>
+                    <div class="nome">Marta, 45 anos</div>
+                    <div class="mensagem">Mais de 15 anos juntos e ele me traía com uma colega do trabalho. Se não fosse
+                      o app, eu ainda estaria sendo enganada.</div>
+                    <div class="tempo">≈ 9 minutos atrás</div>
+                  </div>
+                </div>
+                <div class="comentario hidden">
+                  <div class="emoji">🙎‍♀️</div>
+                  <div>
+                    <div class="nome">Luana, 30 anos</div>
+                    <div class="mensagem">Eu senti que algo estava errado. Quando vi as mensagens apagadas, chorei, mas
+                      agradeci por descobrir.</div>
+                    <div class="tempo">≈ 10 minutos atrás</div>
+                  </div>
+                </div>
+                <div class="comentario hidden">
+                  <div class="emoji">🙎‍♀️</div>
+                  <div>
+                    <div class="nome">Patrícia, 39 anos</div>
+                    <div class="mensagem">As conversas com 'amigas' eram flertes. Me senti traída, mas livre depois que
+                      confirmei tudo.</div>
+                    <div class="tempo">≈ 12 minutos atrás</div>
+                  </div>
+                </div>
+                <div class="comentario hidden">
+                  <div class="emoji">🙎‍♀️</div>
+                  <div>
+                    <div class="nome">Amanda, 26 anos</div>
+                    <div class="mensagem">A máscara caiu. Ele era fofo pessoalmente e um canalha no celular. Tô fora!
+                    </div>
+                    <div class="tempo">≈ 14 minutos atrás</div>
+                  </div>
+                </div>
+                <div class="comentario hidden">
+                  <div class="emoji">🙎‍♀️</div>
+                  <div>
+                    <div class="nome">Débora, 33 anos</div>
+                    <div class="mensagem">Até com a melhor amiga ele estava de papo. Nunca me senti tão traída. Mas pelo
+                      menos descobri a tempo.</div>
+                    <div class="tempo">≈ 16 minutos atrás</div>
+                  </div>
+                </div>
+                <div class="comentario hidden">
+                  <div class="emoji">🙎‍♀️</div>
+                  <div>
+                    <div class="nome">Viviane, 40 anos</div>
+                    <div class="mensagem">Ele me chamava de paranoica, mas o app provou que eu tava certa o tempo todo.
+                    </div>
+                    <div class="tempo">≈ 18 minutos atrás</div>
+                  </div>
+                </div>
+                <div class="comentario hidden">
+                  <div class="emoji">🙎‍♀️</div>
+                  <div>
+                    <div class="nome">Natália, 28 anos</div>
+                    <div class="mensagem">Doía desconfiar, mas doeu ainda mais ter certeza. Agora sigo em frente, livre
+                      e mais forte.</div>
+                    <div class="tempo">≈ 20 minutos atrás</div>
+                  </div>
+                </div>
+                <div class="comentario hidden">
+                  <div class="emoji">🙎‍♀️</div>
+                  <div>
+                    <div class="nome">Carla, 35 anos</div>
+                    <div class="mensagem">Eu precisava de uma prova. E encontrei. Não vale a pena perder tempo com quem
+                      mente.</div>
+                    <div class="tempo">≈ 22 minutos atrás</div>
+                  </div>
+                </div>
+                <div class="comentario hidden">
+                  <div class="emoji">🙎‍♀️</div>
+                  <div>
+                    <div class="nome">Tatiane, 29 anos</div>
+                    <div class="mensagem">Ele apagava tudo... mas o app recuperou até áudio. Ele ficou sem desculpa.
+                    </div>
+                    <div class="tempo">≈ 25 minutos atrás</div>
+                  </div>
+                </div>
+                <div class="comentario hidden">
+                  <div class="emoji">🙎‍♀️</div>
+                  <div>
+                    <div class="nome">Érica, 41 anos</div>
+                    <div class="mensagem">Saber a verdade é doloroso, mas viver na mentira é pior. Descobri e me
+                      libertei.</div>
+                    <div class="tempo">≈ 27 minutos atrás</div>
+                  </div>
+                </div>
+                <div class="comentario hidden">
+                  <div class="emoji">🙎‍♀️</div>
+                  <div>
+                    <div class="nome">Isabela, 24 anos</div>
+                    <div class="mensagem">Tinha algo estranho nas atitudes dele... o aplicativo só confirmou o que meu
+                      coração já sabia.</div>
+                    <div class="tempo">≈ 30 minutos atrás</div>
+                  </div>
+                </div>
+              </div>
+              <button id="verMais" class="btn-toggle">Ver mais comentários</button>
+              <button id="verMenos" class="btn-toggle" style="display:none;">Ver menos comentários</button>
+            </div>
+
+
+<script>
+              const depoimentos = [
+                "Fernanda, 31 anos|Eu achava que era coisa da minha cabeça, mas com o app vi conversas dele com a ex. Coração partido, mas pelo menos vi a verdade.|≈ 1 minuto atrás",
+                "Juliana, 27 anos|Ele saía toda noite dizendo que era 'trabalho', mas as mensagens mostraram encontros com outra. Nunca mais caio nessa.|≈ 3 minutos atrás",
+                "Renata, 34 anos|Graças ao aplicativo, descobri que ele tinha dois celulares. A vida dupla dele acabou no mesmo dia.|≈ 5 minutos atrás",
+                "Thaís, 22 anos|Só depois que vi as conversas é que entendi o quanto fui feita de trouxa. Obrigada por abrir meus olhos.|≈ 7 minutos atrás",
+                "Marta, 45 anos|Mais de 15 anos juntos e ele me traía com uma colega do trabalho. Se não fosse o app, eu ainda estaria sendo enganada.|≈ 9 minutos atrás",
+                "Luana, 30 anos|Eu senti que algo estava errado. Quando vi as mensagens apagadas, chorei, mas agradeci por descobrir.|≈ 10 minutos atrás",
+                "Patrícia, 39 anos|As conversas com 'amigas' eram flertes. Me senti traída, mas livre depois que confirmei tudo.|≈ 12 minutos atrás",
+                "Amanda, 26 anos|A máscara caiu. Ele era fofo pessoalmente e um canalha no celular. Tô fora!|≈ 14 minutos atrás",
+                "Débora, 33 anos|Até com a melhor amiga ele estava de papo. Nunca me senti tão traída. Mas pelo menos descobri a tempo.|≈ 16 minutos atrás",
+                "Viviane, 40 anos|Ele me chamava de paranoica, mas o app provou que eu tava certa o tempo todo.|≈ 18 minutos atrás",
+                "Natália, 28 anos|Doía desconfiar, mas doeu ainda mais ter certeza. Agora sigo em frente, livre e mais forte.|≈ 20 minutos atrás",
+                "Carla, 35 anos|Eu precisava de uma prova. E encontrei. Não vale a pena perder tempo com quem mente.|≈ 22 minutos atrás",
+                "Tatiane, 29 anos|Ele apagava tudo... mas o app recuperou até áudio. Ele ficou sem desculpa.|≈ 25 minutos atrás",
+                "Érica, 41 anos|Saber a verdade é doloroso, mas viver na mentira é pior. Descobri e me libertei.|≈ 27 minutos atrás",
+                "Isabela, 24 anos|Tinha algo estranho nas atitudes dele... o aplicativo só confirmou o que meu coração já sabia.|≈ 30 minutos atrás"
+              ];
+
+              const container = document.getElementById("comentarios");
+              const verMaisBtn = document.getElementById("verMais");
+              const verMenosBtn = document.getElementById("verMenos");
+
+              function renderizarComentarios(mostrarTodos = false) {
+                container.innerHTML = '';
+                depoimentos.forEach((dep, index) => {
+                  const [nome, msg, tempo] = dep.split("|");
+                  const div = document.createElement("div");
+                  div.className = "comentario" + (index > 2 && !mostrarTodos ? " hidden" : "");
+                  div.innerHTML = `
+          <div class="emoji">🙎‍♀️</div>
+          <div>
+            <div class="nome">${nome}</div>
+            <div class="mensagem">${msg}</div>
+            <div class="tempo">${tempo}</div>
+          </div>
+        `;
+                  container.appendChild(div);
+                });
+              }
+
+              renderizarComentarios();
+
+              verMaisBtn.onclick = () => {
+                renderizarComentarios(true);
+                verMaisBtn.style.display = 'none';
+                verMenosBtn.style.display = 'block';
+              };
+
+              verMenosBtn.onclick = () => {
+                renderizarComentarios(false);
+                verMenosBtn.style.display = 'none';
+                verMaisBtn.style.display = 'block';
+              };
+
+              setInterval(() => {
+                const contador = document.getElementById("contadorPessoas");
+                contador.textContent = Math.floor(Math.random() * 41) + 220;
+              }, 2000);
+
+             
+            </script>
+
+<div style="color: #fcf5ec; font-size: 10px; line-height: 1px; padding: 1px; background-color: #fcf5eb;">
+    <h1>O que é um Detetive Particular?</h1>
+    <p>O detetive particular é um profissional especializado em obter informações de forma legal e ética, atuando em casos pessoais, familiares ou corporativos. Seu trabalho é pautado na discrição, na análise investigativa e na coleta de evidências autorizadas.</p>
+
+    <h2>Quando contratar um Detetive Particular?</h2>
+    <ul>
+        <li>Verificação de comportamento em processos judiciais;</li>
+        <li>Investigação de desaparecimento de pessoas;</li>
+        <li>Confirmação de informações em separações judiciais;</li>
+        <li>Apuração de fraudes ou má conduta em ambientes corporativos;</li>
+        <li>Levantamento de dados em casos de furto interno.</li>
+    </ul>
+
+    <h2>Como funciona o trabalho de um Detetive Particular?</h2>
+    <p>Após a contratação, o detetive define estratégias legais de investigação e gera relatórios com base nas informações autorizadas e obtidas de forma ética.</p>
+
+    <h2>É legal contratar um Detetive?</h2>
+    <p>Sim. A profissão é regulamentada pela Lei nº 13.432/2017. O trabalho deve respeitar a privacidade e a legislação vigente.</p>
+
+    <h2>O que considerar ao contratar um Detetive?</h2>
+    <ul>
+        <li>Experiência e atuação legal;</li>
+        <li>Contrato claro e detalhado;</li>
+        <li>Nenhuma prática que envolva invasão de privacidade;</li>
+        <li>Discrição e profissionalismo.</li>
+    </ul>
+
+    <p>Este conteúdo é informativo e segue a legislação. Não promovemos ou incentivamos qualquer atividade ilegal ou invasiva.</p>
+</div>
+
+
+  </main>
+
+   <footer style="background-color: #f8f9fa; padding: 40px 20px; font-family: Arial, sans-serif; font-size: 13px; color: #555;">
+  <div style="max-width: 1100px; margin: 0 auto;">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; margin-bottom: 30px;">
+      
+      <div style="flex: 1 1 200px; margin-bottom: 20px;">
+        <h3 style="font-weight: bold; font-size: 14px; color: #000; margin-bottom: 10px;">Sobre Nós</h3>
+        <p style="margin: 0 0 10px;">Fornecemos serviços de rastreamento de WhatsApp para ajudar pessoas a descobrir a verdade em seus relacionamentos.</p>
+        <div style="display: flex; gap: 10px; margin-top: 10px;">
+          <a href="#" style="color: #555;"><img src="/facebook.svg" width="16" /></a>
+          <a href="#" style="color: #555;"><img src="/instagram.svg" width="16" /></a>
+          <a href="#" style="color: #555;"><img src="/twitter.svg" width="16" /></a>
+        </div>
+      </div>
+
+      <div style="flex: 1 1 150px; margin-bottom: 20px;">
+        <h3 style="font-weight: bold; font-size: 14px; color: #000; margin-bottom: 10px;">Links Úteis</h3>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li><a href="#" style="color: #555; text-decoration: none;">Como Funciona</a></li>
+          <li><a href="#" style="color: #555; text-decoration: none;">Perguntas Frequentes</a></li>
+          <li><a href="#" style="color: #555; text-decoration: none;">Suporte</a></li>
+          <li><a href="#" style="color: #555; text-decoration: none;">Blog</a></li>
+        </ul>
+      </div>
+
+      <div style="flex: 1 1 150px; margin-bottom: 20px;">
+        <h3 style="font-weight: bold; font-size: 14px; color: #000; margin-bottom: 10px;">Legal</h3>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li><a href="#" style="color: #555; text-decoration: none;">Termos de Uso</a></li>
+          <li><a href="./politica-de-privacidade" style="color: #555; text-decoration: none;">Política de Privacidade</a></li>
+          <li><a href="./termos-de-uso" style="color: #555; text-decoration: none;">Política de Cookies</a></li>
+          <li><a href="#" style="color: #555; text-decoration: none;">Aviso Legal</a></li>
+        </ul>
+      </div>
+
+      <div style="flex: 1 1 200px; margin-bottom: 20px;">
+        <h3 style="font-weight: bold; font-size: 14px; color: #000; margin-bottom: 10px;">Contato</h3>
+        <p style="margin: 0;"><strong>Email:</strong><br>
+          <a href="mailto:contato@rastreadorwhatsapp.com" style="color: #555; text-decoration: none;">contato@rastreadorwhatsapp.com</a>
+        </p>
+        <p style="margin: 10px 0 0;"><strong>Telefone:</strong><br>
+          <a href="tel:+551199999999" style="color: #555; text-decoration: none;">+55 (11) 9999-9999</a>
+        </p>
+        <p style="margin: 10px 0 0;"><strong>Horário de Atendimento:</strong><br>Seg - Sex: 9h às 18h</p>
+      </div>
+    </div>
+
+    <div style="background-color: #f1f1f1; padding: 20px; border-radius: 6px; max-height: 200px; overflow-y: auto; font-size: 12px; color: #333;">
+      <h4 style="font-weight: bold; margin-bottom: 10px;">Monitoramento Familiar: Como Proteger Seus Filhos Com o Auxílio da Tecnologia</h4>
+      <p>A segurança digital tem se tornado uma preocupação crescente entre os pais e responsáveis, especialmente em um mundo onde crianças e adolescentes passam cada vez mais tempo conectados. O monitoramento familiar por meio de aplicativos específicos pode ser uma solução eficaz para proteger seus filhos de ameaças online, controlar o uso excessivo do celular e garantir um ambiente digital mais seguro.</p>
+
+      <strong>A Importância do Monitoramento Familiar</strong>
+      <p>Vivemos na era digital, onde a internet faz parte da rotina das crianças desde cedo. Seja para estudar, se comunicar com amigos ou se entreter, os dispositivos móveis e as redes sociais estão sempre presentes. No entanto, essa conectividade vem acompanhada de desafios e riscos que não podem ser ignorados.</p>
+      <p>O cyberbullying, por exemplo, tornou-se uma preocupação global. Muitas crianças e adolescentes enfrentam ataques virtuais que podem afetar sua autoestima e bem-estar emocional. Além disso, golpes online, exposição a conteúdos inapropriados e até mesmo abordagens de pessoas mal-intencionadas representam riscos reais.</p>
+      <p>É por isso que o monitoramento familiar não deve ser visto apenas como uma forma de controle, mas sim como um suporte essencial para educar e orientar os filhos na navegação segura pelo mundo digital.</p>
+
+      <strong>Como Funcionam os Métodos de Monitoramento?</strong>
+      <p>Existem diversas formas de monitoramento que ajudam os pais a protegerem seus filhos no ambiente digital. As ferramentas disponíveis no mercado oferecem funcionalidades que variam desde a limitação do tempo de tela até o rastreamento em tempo real. Vamos entender melhor algumas dessas estratégias:</p>
+      <ul style="padding-left: 20px;">
+        <li><strong>Monitoramento de Conversas e Redes Sociais:</strong> redes como Instagram, TikTok e WhatsApp podem expor os jovens a riscos. O monitoramento ajuda a prevenir isso.</li>
+        <li><strong>Rastreamento de Localização em Tempo Real:</strong> saber onde seu filho está traz mais segurança e tranquilidade.</li>
+        <li><strong>Controle de Tempo de Uso:</strong> limita o uso do celular para melhorar desempenho escolar, sono e saúde mental.</li>
+      </ul>
+
+      <p style="font-style: italic;">Este site não é parte do site do Google ou do Google Inc. Além disso, este site não é endossado pelo Google de nenhuma forma. Google é uma marca registrada de Google, Inc.</p>
+      <p style="font-style: italic;">As informações contidas neste site têm caráter meramente informativo e não substituem o aconselhamento de um profissional qualificado. O uso contínuo implica aceitação da nossa política de privacidade.</p>
+    </div>
+
+    <div style="margin-top: 30px; text-align: center; font-size: 12px; color: #888;">
+      © 2025 Rastreador WhatsApp. Todos os direitos reservados.
+    </div>
+  </div>
+</footer>
+
+  
+  	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+<script>
+$(document).ready(function () {
+    // Função para pegar parâmetro da URL
+    function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results = regex.exec(window.location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    }
+
+    // Lista de parâmetros que vamos capturar (UTM + Google Ads)
+    var paramsToCapture = [
+        'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'src',
+        'gclid', 'wbraid', 'gbraid'
+         'keyword'
+    ];
+
+    // Salva os parâmetros em cookie por 30 dias
+    paramsToCapture.forEach(function (param) {
+        var value = getUrlParameter(param);
+        if (value) {
+            $.cookie(param, value, { expires: 30, path: '/' });
+        }
+    });
+
+    // Monta os parâmetros a partir dos cookies
+    function buildUTMParams() {
+        var queryParams = [];
+        paramsToCapture.forEach(function (param) {
+            var value = $.cookie(param);
+            if (value) {
+                queryParams.push(param + '=' + encodeURIComponent(value));
+            }
+        });
+        return queryParams.length > 0 ? '?' + queryParams.join('&') : '';
+    }
+
+    var utmParams = buildUTMParams();
+
+    // Adiciona os parâmetros a todos os links da página
+    $('a').each(function () {
+        var href = $(this).attr('href');
+
+        if (href && !href.startsWith('#') && !href.startsWith('javascript:')) {
+            if (href.indexOf('?') > -1) {
+                $(this).attr('href', href + '&' + utmParams.substring(1));
+            } else {
+                $(this).attr('href', href + utmParams);
+            }
+        }
+    });
+});
+</script>
+
+  
+  
+</body>
+
+</html>
