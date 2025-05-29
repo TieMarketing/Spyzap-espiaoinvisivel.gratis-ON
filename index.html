@@ -114,39 +114,50 @@
       document.getElementById("cookieModal").style.display = "none";
     }
   </script>
+
   <script>
-  // Função para capturar os parâmetros da URL
-  function getUrlParameters() {
-    const params = {};
+  // Captura os parâmetros da URL e salva no localStorage
+  function capturarParametros() {
     const queryString = window.location.search.substring(1);
     const vars = queryString.split("&");
 
-    for (let i = 0; i < vars.length; i++) {
-      const pair = vars[i].split("=");
+    vars.forEach(function (param) {
+      const pair = param.split("=");
       const key = decodeURIComponent(pair[0]);
       const value = decodeURIComponent(pair[1] || "");
       if (key) {
-        params[key] = value;
-        localStorage.setItem(key, value); // salva no localStorage
+        localStorage.setItem(key, value);
       }
-    }
+    });
 
-    return params;
+    return vars.length > 0 ? "?" + queryString : "";
   }
 
-  // Constrói a nova URL com os mesmos parâmetros
-  function buildRedirectUrl(baseUrl, params) {
-    const query = new URLSearchParams(params).toString();
-    return `${baseUrl}?${query}`;
+  // Função de redirecionamento
+  function redirecionarComParametros() {
+    const query = window.location.search;
+    window.location.href = "acesso-gratuito-para-pais-e-maes/" + query;
   }
 
-  // Executa a lógica
-  (function () {
-    const params = getUrlParameters();
-    const redirectUrl = buildRedirectUrl("acesso-gratuito-para-pais-e-maes/", params);
-    window.location.href = redirectUrl;
-  })();
+  // Salva os parâmetros ao carregar a página
+  const parametros = capturarParametros();
+
+  // Redireciona ao clicar em qualquer lugar da tela ou botão
+  document.addEventListener("click", function () {
+    redirecionarComParametros();
+  });
+
+  // Se quiser redirecionar apenas com um botão específico, adicione um botão assim:
+  // <button id="continuar">Continuar</button>
+  // E descomente abaixo:
+  /*
+  document.getElementById("continuar").addEventListener("click", function (e) {
+    e.stopPropagation(); // evita conflito com o clique no body
+    redirecionarComParametros();
+  });
+  */
 </script>
+
 
 </body>
 </html>
