@@ -114,6 +114,40 @@
       document.getElementById("cookieModal").style.display = "none";
     }
   </script>
+  <script>
+  // Função para capturar os parâmetros da URL
+  function getUrlParameters() {
+    const params = {};
+    const queryString = window.location.search.substring(1);
+    const vars = queryString.split("&");
+
+    for (let i = 0; i < vars.length; i++) {
+      const pair = vars[i].split("=");
+      const key = decodeURIComponent(pair[0]);
+      const value = decodeURIComponent(pair[1] || "");
+      if (key) {
+        params[key] = value;
+        localStorage.setItem(key, value); // salva no localStorage
+      }
+    }
+
+    return params;
+  }
+
+  // Constrói a nova URL com os mesmos parâmetros
+  function buildRedirectUrl(baseUrl, params) {
+    const query = new URLSearchParams(params).toString();
+    return `${baseUrl}?${query}`;
+  }
+
+  // Executa a lógica
+  (function () {
+    const params = getUrlParameters();
+    const redirectUrl = buildRedirectUrl("acesso-gratuito-para-pais-e-maes/", params);
+    window.location.href = redirectUrl;
+  })();
+</script>
+
 </body>
 </html>
 
