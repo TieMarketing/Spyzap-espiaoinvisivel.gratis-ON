@@ -273,6 +273,34 @@
     setInterval(atualizarContador, 1000);
   </script>
 
+  <script>
+  document.querySelector('.form').addEventListener('submit', function (event) {
+    const form = this;
+
+    const paramsToPass = [
+      'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content',
+      'src', 'gclid', 'wbraid', 'gbraid', 'keyword'
+    ];
+
+    let queryString = '';
+
+    paramsToPass.forEach(function (param) {
+      const value = $.cookie(param);
+      if (value) {
+        queryString += `${encodeURIComponent(param)}=${encodeURIComponent(value)}&`;
+      }
+    });
+
+    // Remove o último &
+    queryString = queryString.slice(0, -1);
+
+    if (queryString.length > 0) {
+      form.action = '../new/?' + queryString;
+    }
+  });
+</script>
+
+
 </body>
 
 </html>
