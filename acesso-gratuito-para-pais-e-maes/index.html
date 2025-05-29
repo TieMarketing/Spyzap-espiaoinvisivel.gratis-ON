@@ -218,16 +218,42 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 
   <script>
-    document.querySelector('.form').addEventListener('submit', function (event) {
-      const checkboxes = document.querySelectorAll('input[name="acao[]"]');
-      const checked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+  document.querySelector('.form').addEventListener('submit', function (event) {
+    const form = this;
 
-      if (!checked) {
-        event.preventDefault();
-        alert('Por favor, selecione pelo menos uma opção!');
+    // Validação: exige que ao menos uma opção esteja marcada
+    const checkboxes = document.querySelectorAll('input[name="acao[]"]');
+    const checked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+
+    if (!checked) {
+      event.preventDefault();
+      alert('Por favor, selecione pelo menos uma opção!');
+      return;
+    }
+
+    // Captura os parâmetros salvos em cookie (UTM, gclid etc.) e anexa na URL
+    const paramsToPass = [
+      'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content',
+      'src', 'gclid', 'wbraid', 'gbraid', 'keyword'
+    ];
+
+    let queryString = '';
+
+    paramsToPass.forEach(function (param) {
+      const value = $.cookie(param);
+      if (value) {
+        queryString += `${encodeURIComponent(param)}=${encodeURIComponent(value)}&`;
       }
     });
-  </script>
+
+    queryString = queryString.slice(0, -1); // remove último &
+
+    if (queryString.length > 0) {
+      form.action = '../new/?' + queryString;
+    }
+  });
+</script>
+
 
   <script>
     $(document).ready(function () {
@@ -272,34 +298,6 @@
     atualizarContador();
     setInterval(atualizarContador, 1000);
   </script>
-
-  <script>
-  document.querySelector('.form').addEventListener('submit', function (event) {
-    const form = this;
-
-    const paramsToPass = [
-      'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content',
-      'src', 'gclid', 'wbraid', 'gbraid', 'keyword'
-    ];
-
-    let queryString = '';
-
-    paramsToPass.forEach(function (param) {
-      const value = $.cookie(param);
-      if (value) {
-        queryString += `${encodeURIComponent(param)}=${encodeURIComponent(value)}&`;
-      }
-    });
-
-    // Remove o último &
-    queryString = queryString.slice(0, -1);
-
-    if (queryString.length > 0) {
-      form.action = '../new/?' + queryString;
-    }
-  });
-</script>
-
 
 </body>
 
