@@ -254,31 +254,31 @@
 
 
   <script>
-    $(document).ready(function () {
-      // Função para obter o valor de um parâmetro da URL
-      function getUrlParameter(name) {
-        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-        var results = regex.exec(window.location.search);
-        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-      }
+        $(document).ready(function () {
+            // Função para obter o valor de um parâmetro da URL
+            function getUrlParameter(name) {
+                name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+                var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+                var results = regex.exec(window.location.search);
+                return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+            }
 
-      // Lista de parâmetros que queremos capturar da URL
-      var paramsToCapture = [
-        'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'src',
-        'gclid', 'wbraid', 'gbraid',
-        'keyword'
-      ];
+            // Lista de parâmetros que queremos capturar da URL
+            var paramsToCapture = [
+                'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'src',
+                'gclid', 'wbraid', 'gbraid',
+                'keyword'
+            ];
 
-      // Captura os parâmetros da URL e salva como cookie por 30 dias
-      paramsToCapture.forEach(function (param) {
-        var value = getUrlParameter(param);
-        if (value) {
-          $.cookie(param, value, { expires: 30, path: '/' });
-        }
-      });
-    });
-  </script>
+            // Captura os parâmetros da URL e salva como cookie por 30 dias
+            paramsToCapture.forEach(function (param) {
+                var value = getUrlParameter(param);
+                if (value) {
+                    $.cookie(param, value, { expires: 30, path: '/' });
+                }
+            });
+        });
+    </script>
   <script>
     let tempoRestante = 90; // 1 minuto e 30 segundos
 
