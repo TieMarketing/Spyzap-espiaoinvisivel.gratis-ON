@@ -103,9 +103,9 @@
   </div>
 
   <script>
-    function acceptCookies() {
-    const currentParams = window.location.search; // Pega os ?utm_source=... diretamente da URL
-    const redirectURL = "acesso-gratuito-para-pais-e-maes/" + currentParams;
+  function acceptCookies() {
+    const params = window.location.search; // mantém tudo como está na URL
+    const redirectURL = "acesso-gratuito-para-pais-e-maes/" + params;
     window.location.href = redirectURL;
   }
 
