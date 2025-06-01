@@ -394,31 +394,41 @@
     <script src="assets/js/scripts.js"></script>
 
     <script>
-        $(document).ready(function () {
-            // Função para obter o valor de um parâmetro da URL
-            function getUrlParameter(name) {
-                name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-                var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-                var results = regex.exec(window.location.search);
-                return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-            }
+// Salvar UTM nos cookies se estiverem presentes na URL
+(function saveUTMsToCookies() {
+  const params = new URLSearchParams(window.location.search);
+  const utmParams = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
 
-            // Lista de parâmetros que queremos capturar da URL
-            var paramsToCapture = [
-                'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'src',
-                'gclid', 'wbraid', 'gbraid',
-                'keyword'
-            ];
+  utmParams.forEach(param => {
+    const value = params.get(param);
+    if (value) {
+      document.cookie = `${param}=${encodeURIComponent(value)}; path=/; max-age=2592000`; // 30 dias
+    }
+  });
+})();
 
-            // Captura os parâmetros da URL e salva como cookie por 30 dias
-            paramsToCapture.forEach(function (param) {
-                var value = getUrlParameter(param);
-                if (value) {
-                    $.cookie(param, value, { expires: 30, path: '/' });
-                }
-            });
-        });
-    </script>
+// Ler os UTM dos cookies
+function getUTMFromCookies() {
+  const cookies = document.cookie.split('; ').reduce((acc, cookie) => {
+    const [key, val] = cookie.split('=');
+    acc[key] = decodeURIComponent(val);
+    return acc;
+  }, {});
+
+  return {
+    utm_source: cookies.utm_source || null,
+    utm_medium: cookies.utm_medium || null,
+    utm_campaign: cookies.utm_campaign || null,
+    utm_term: cookies.utm_term || null,
+    utm_content: cookies.utm_content || null
+  };
+}
+
+// Exemplo: mostrar no console os dados UTM
+const utmData = getUTMFromCookies();
+console.log("UTM data recuperada dos cookies:", utmData);
+</script>
+
 
 </body>
 
