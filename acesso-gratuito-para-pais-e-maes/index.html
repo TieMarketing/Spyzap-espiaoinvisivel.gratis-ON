@@ -240,17 +240,15 @@
     ];
 
     $('.form').on('submit', function (event) {
-      const form = this;
+      event.preventDefault();
 
-      // Validação: pelo menos um checkbox marcado
-      const checkboxes = $('input[name="acao[]"]');
-      if (!checkboxes.is(':checked')) {
-        event.preventDefault();
+      const checked = $('input[name="acao[]"]:checked').val();
+      if (!checked) {
         alert('Por favor, selecione pelo menos uma opção!');
         return;
       }
 
-      // Coletar os valores UTM da URL
+      // Monta os parâmetros da URL
       let queryString = '';
       utmParams.forEach(function (param) {
         const value = getUrlParameter(param);
@@ -259,11 +257,15 @@
         }
       });
 
-      // Permitir que o navegador adicione os "acao[]" automaticamente
-      form.action = '../new/' + (queryString ? '?' + queryString : '');
+      // Adiciona o valor selecionado
+      queryString += `acao[]=${encodeURIComponent(checked)}`;
+
+      // Redireciona com todos os parâmetros
+      window.location.href = '../new/?' + queryString;
     });
   });
 </script>
+
 
   <script>
     let tempoRestante = 90; // 1 minuto e 30 segundos
