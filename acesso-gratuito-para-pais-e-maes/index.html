@@ -216,29 +216,21 @@
   </footer>
 <script>
   $(document).ready(function () {
-    // Função para obter parâmetros da URL
-    function getUrlParameter(name) {
-      name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-      var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-      var results = regex.exec(window.location.search);
-      return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-    }
-
-    // Parâmetros que você quer capturar e manter
-    var paramsToCapture = [
+    // Lista de parâmetros UTM que queremos passar adiante
+    const paramsToPass = [
       'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content',
       'src', 'gclid', 'wbraid', 'gbraid', 'keyword'
     ];
 
-    // Captura os parâmetros da URL e salva nos cookies
-    paramsToCapture.forEach(function (param) {
-      var value = getUrlParameter(param);
-      if (value) {
-        $.cookie(param, value, { expires: 30, path: '/' });
-      }
-    });
+    // Função para obter valor de um parâmetro da URL atual
+    function getUrlParameter(name) {
+      name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+      const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+      const results = regex.exec(window.location.search);
+      return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    }
 
-    // Manipula o envio do formulário
+    // Ao enviar o formulário
     $('.form').on('submit', function (event) {
       const form = this;
 
@@ -252,24 +244,23 @@
         return;
       }
 
-      // Monta a query string com os dados salvos nos cookies
+      // Monta os parâmetros diretamente da URL atual
       let queryString = '';
-      paramsToCapture.forEach(function (param) {
-        const value = $.cookie(param);
+      paramsToPass.forEach(function (param) {
+        const value = getUrlParameter(param);
         if (value) {
           queryString += `${encodeURIComponent(param)}=${encodeURIComponent(value)}&`;
         }
       });
 
-      queryString = queryString.slice(0, -1); // remove último &
+      queryString = queryString.slice(0, -1); // remove o último &
 
-      // Altera a ação do formulário para incluir os parâmetros
-      if (queryString.length > 0) {
-        form.action = '../new/?' + queryString;
-      }
+      // Atualiza a action do formulário com os UTM na query string
+      form.action = '../new/' + (queryString ? `?${queryString}` : '');
     });
   });
 </script>
+
   <script>
     let tempoRestante = 90; // 1 minuto e 30 segundos
 
