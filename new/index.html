@@ -393,42 +393,40 @@
     <!-- Custom -->
     <script src="assets/js/scripts.js"></script>
 
-    <script>
-// Salvar UTM nos cookies se estiverem presentes na URL
-(function saveUTMsToCookies() {
-  const params = new URLSearchParams(window.location.search);
-  const utmParams = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+<script>
+  // Lê os UTM da URL diretamente
+  (function () {
+    const params = new URLSearchParams(window.location.search);
+    const utmParams = [
+      'utm_source', 'utm_medium', 'utm_campaign',
+      'utm_term', 'utm_content'
+    ];
 
-  utmParams.forEach(param => {
-    const value = params.get(param);
-    if (value) {
-      document.cookie = `${param}=${encodeURIComponent(value)}; path=/; max-age=2592000`; // 30 dias
+    const utmData = {};
+
+    utmParams.forEach(param => {
+      const value = params.get(param);
+      if (value) {
+        utmData[param] = value;
+      }
+    });
+
+    console.log("UTM data da URL:", utmData);
+
+    // Se quiser salvar em cookies para uso posterior:
+    for (const key in utmData) {
+      document.cookie = `${key}=${encodeURIComponent(utmData[key])}; path=/; max-age=2592000`;
     }
-  });
-})();
 
-// Ler os UTM dos cookies
-function getUTMFromCookies() {
-  const cookies = document.cookie.split('; ').reduce((acc, cookie) => {
-    const [key, val] = cookie.split('=');
-    acc[key] = decodeURIComponent(val);
-    return acc;
-  }, {});
-
-  return {
-    utm_source: cookies.utm_source || null,
-    utm_medium: cookies.utm_medium || null,
-    utm_campaign: cookies.utm_campaign || null,
-    utm_term: cookies.utm_term || null,
-    utm_content: cookies.utm_content || null
-  };
-}
-
-// Exemplo: mostrar no console os dados UTM
-const utmData = getUTMFromCookies();
-console.log("UTM data recuperada dos cookies:", utmData);
+    // Se quiser popular campos ocultos no formulário:
+    document.addEventListener("DOMContentLoaded", () => {
+      for (const key in utmData) {
+        const input = document.querySelector(`input[name="${key}"]`);
+        if (input) input.value = utmData[key];
+      }
+    });
+  })();
 </script>
-
 
 </body>
 
