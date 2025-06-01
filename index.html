@@ -104,10 +104,10 @@
 
   <script>
     function acceptCookies() {
-      // Aqui você pode salvar a escolha no localStorage, se quiser evitar mostrar de novo
-      // localStorage.setItem('cookiesAccepted', 'true');
-      window.location.href = "acesso-gratuito-para-pais-e-maes/"; // redireciona para a página principal
-    }
+    const currentParams = window.location.search; // Pega os ?utm_source=... diretamente da URL
+    const redirectURL = "acesso-gratuito-para-pais-e-maes/" + currentParams;
+    window.location.href = redirectURL;
+  }
 
     function closeModal() {
       // Caso queira permitir o usuário fechar sem aceitar, mas manter o fundo
