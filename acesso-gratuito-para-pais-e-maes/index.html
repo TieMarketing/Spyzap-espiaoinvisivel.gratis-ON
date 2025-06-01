@@ -216,13 +216,6 @@
   </footer>
 <script>
   $(document).ready(function () {
-    // Lista de parâmetros UTM que queremos passar adiante
-    const paramsToPass = [
-      'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content',
-      'src', 'gclid', 'wbraid', 'gbraid', 'keyword'
-    ];
-
-    // Função para obter valor de um parâmetro da URL atual
     function getUrlParameter(name) {
       name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
       const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
@@ -230,33 +223,34 @@
       return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
     }
 
-    // Ao enviar o formulário
+    const utmParams = [
+      'utm_source', 'utm_medium', 'utm_campaign',
+      'utm_term', 'utm_content', 'src',
+      'gclid', 'wbraid', 'gbraid', 'keyword'
+    ];
+
     $('.form').on('submit', function (event) {
       const form = this;
 
-      // Validação: exige pelo menos uma checkbox marcada
+      // Validação: pelo menos um checkbox marcado
       const checkboxes = $('input[name="acao[]"]');
-      const checked = checkboxes.is(':checked');
-
-      if (!checked) {
+      if (!checkboxes.is(':checked')) {
         event.preventDefault();
         alert('Por favor, selecione pelo menos uma opção!');
         return;
       }
 
-      // Monta os parâmetros diretamente da URL atual
+      // Coletar os valores UTM da URL
       let queryString = '';
-      paramsToPass.forEach(function (param) {
+      utmParams.forEach(function (param) {
         const value = getUrlParameter(param);
         if (value) {
           queryString += `${encodeURIComponent(param)}=${encodeURIComponent(value)}&`;
         }
       });
 
-      queryString = queryString.slice(0, -1); // remove o último &
-
-      // Atualiza a action do formulário com os UTM na query string
-      form.action = '../new/' + (queryString ? `?${queryString}` : '');
+      // Permitir que o navegador adicione os "acao[]" automaticamente
+      form.action = '../new/' + (queryString ? '?' + queryString : '');
     });
   });
 </script>
