@@ -104,8 +104,13 @@
 
   <script>
   function acceptCookies() {
-    const params = window.location.search; // mantém tudo como está na URL
-    const redirectURL = "acesso-gratuito-para-pais-e-maes/" + params;
+    // Pega todos os parâmetros exatamente como estão na URL atual
+    const queryParams = window.location.search;
+
+    // Redireciona para a nova página com os mesmos parâmetros
+    const redirectURL = "acesso-gratuito-para-pais-e-maes/" + queryParams;
+
+    // Redirecionamento
     window.location.href = redirectURL;
   }
 
