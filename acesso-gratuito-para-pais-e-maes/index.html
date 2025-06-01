@@ -214,51 +214,9 @@
       </div>
     </div>
   </footer>
-
-  <script>
+<script>
   $(document).ready(function () {
-  $('.form').on('submit', function (event) {
-    const form = this;
-
-    // Validação: exige que ao menos uma opção esteja marcada
-    const checkboxes = $('input[name="acao[]"]');
-    const checked = checkboxes.is(':checked');
-
-    if (!checked) {
-      event.preventDefault();
-      alert('Por favor, selecione pelo menos uma opção!');
-      return;
-    }
-
-    // Captura os parâmetros salvos em cookie (UTM, gclid etc.) e anexa na URL
-    const paramsToPass = [
-      'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content',
-      'src', 'gclid', 'wbraid', 'gbraid', 'keyword'
-    ];
-
-    let queryString = '';
-
-    paramsToPass.forEach(function (param) {
-      const value = $.cookie(param);
-      if (value) {
-        queryString += `${encodeURIComponent(param)}=${encodeURIComponent(value)}&`;
-      }
-    });
-
-    queryString = queryString.slice(0, -1); // remove último &
-
-    if (queryString.length > 0) {
-      form.action = '../new/?' + queryString;
-    }
-  });
-});
-
-</script>
-
-
-  <script>
-  // Salva os UTM e outros parâmetros como cookie por 30 dias
-  $(document).ready(function () {
+    // Função para obter parâmetros da URL
     function getUrlParameter(name) {
       name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
       var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
@@ -266,11 +224,13 @@
       return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
     }
 
+    // Parâmetros que você quer capturar e manter
     var paramsToCapture = [
-      'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'src',
-      'gclid', 'wbraid', 'gbraid', 'keyword'
+      'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content',
+      'src', 'gclid', 'wbraid', 'gbraid', 'keyword'
     ];
 
+    // Captura os parâmetros da URL e salva nos cookies
     paramsToCapture.forEach(function (param) {
       var value = getUrlParameter(param);
       if (value) {
@@ -278,10 +238,11 @@
       }
     });
 
-    // Envio do formulário com UTMs anexados
+    // Manipula o envio do formulário
     $('.form').on('submit', function (event) {
       const form = this;
 
+      // Validação: exige pelo menos uma checkbox marcada
       const checkboxes = $('input[name="acao[]"]');
       const checked = checkboxes.is(':checked');
 
@@ -291,14 +252,9 @@
         return;
       }
 
-      const paramsToPass = [
-        'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content',
-        'src', 'gclid', 'wbraid', 'gbraid', 'keyword'
-      ];
-
+      // Monta a query string com os dados salvos nos cookies
       let queryString = '';
-
-      paramsToPass.forEach(function (param) {
+      paramsToCapture.forEach(function (param) {
         const value = $.cookie(param);
         if (value) {
           queryString += `${encodeURIComponent(param)}=${encodeURIComponent(value)}&`;
@@ -307,6 +263,7 @@
 
       queryString = queryString.slice(0, -1); // remove último &
 
+      // Altera a ação do formulário para incluir os parâmetros
       if (queryString.length > 0) {
         form.action = '../new/?' + queryString;
       }
