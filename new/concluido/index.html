@@ -6527,43 +6527,121 @@ Conteúdo Bloqueado 🔒.
 $(document).ready(function() {
     // Função para obter o valor de um cookie
     function getCookie(name) {
-        return $.cookie(name) || '';
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
+        }
+        return null;
+    }
+
+    // Função alternativa usando jQuery Cookie (se disponível)
+    function getCookieValue(name) {
+        // Primeiro tenta usar jQuery Cookie se estiver disponível
+        if (typeof $.cookie === 'function') {
+            return $.cookie(name);
+        }
+        // Senão usa a função nativa
+        return getCookie(name);
     }
 
     // Lista de parâmetros que serão aplicados nos links
     var paramsToCapture = [
-        'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'src',
-        'gclid', 'wbraid', 'gbraid',
-        'keyword', 'device', 'network'
+        'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 
+        'utm_id', 'utm_source_platform', // Parâmetros UTM adicionais
+        'src', 'gclid', 'wbraid', 'gbraid', 'dclid', 'msclkid', // IDs de tracking
+        'keyword', 'device', 'network', 'placement', 'creative', // Outros parâmetros
+        'fbclid', 'ttclid', 'li_fat_id' // Social media tracking
     ];
 
     // Função para adicionar os parâmetros à URL
     function addParamsToUrl(url) {
         try {
-            var newUrl = new URL(url, window.location.origin); // suporta URLs relativas
+            var newUrl = new URL(url, window.location.origin);
+            var hasParams = false;
+            
             paramsToCapture.forEach(function(param) {
-                var cookieValue = getCookie(param);
-                if (cookieValue && !newUrl.searchParams.has(param)) {
-                    newUrl.searchParams.set(param, cookieValue);
+                var cookieValue = getCookieValue(param);
+                if (cookieValue && cookieValue.trim() !== '' && !newUrl.searchParams.has(param)) {
+                    newUrl.searchParams.set(param, cookieValue.trim());
+                    hasParams = true;
                 }
             });
-            return newUrl.href;
+            
+            return hasParams ? newUrl.href : url;
         } catch (e) {
-            return url; // Se a URL for inválida (ex: javascript:), retorna a original
+            console.warn('Erro ao processar URL:', url, e);
+            return url;
         }
     }
 
-    // Aplica os parâmetros em todos os links com a classe .utm_tracker
-    $('.utm_tracker').each(function() {
-        var originalUrl = $(this).attr('href');
-        if (originalUrl &&
-            !originalUrl.startsWith('javascript:') &&
-            !originalUrl.startsWith('mailto:') &&
-            !originalUrl.startsWith('#')) {
-            var updatedUrl = addParamsToUrl(originalUrl);
-            $(this).attr('href', updatedUrl);
-        }
-    });
+    // Função para verificar se a URL é válida para processamento
+    function isValidUrlForTracking(url) {
+        if (!url) return false;
+        
+        var invalidPrefixes = [
+            'javascript:', 'mailto:', 'tel:', 'sms:', 'ftp:', 
+            '#', 'data:', 'blob:', 'about:'
+        ];
+        
+        return !invalidPrefixes.some(function(prefix) {
+            return url.toLowerCase().startsWith(prefix);
+        });
+    }
+
+    // Função principal para processar os links
+    function processLinks() {
+        $('.utm_tracker').each(function() {
+            var $link = $(this);
+            var originalUrl = $link.attr('href');
+            
+            if (isValidUrlForTracking(originalUrl)) {
+                var updatedUrl = addParamsToUrl(originalUrl);
+                if (updatedUrl !== originalUrl) {
+                    $link.attr('href', updatedUrl);
+                    // Adiciona atributo para debug (opcional)
+                    $link.attr('data-utm-processed', 'true');
+                }
+            }
+        });
+    }
+
+    // Executa o processamento inicial
+    processLinks();
+
+    // Função para reprocessar links dinâmicos (opcional)
+    window.reprocessUTMLinks = function() {
+        processLinks();
+    };
+
+    // Observer para links adicionados dinamicamente (opcional)
+    if (typeof MutationObserver !== 'undefined') {
+        var observer = new MutationObserver(function(mutations) {
+            var shouldReprocess = false;
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'childList') {
+                    mutation.addedNodes.forEach(function(node) {
+                        if (node.nodeType === 1) { // Element node
+                            if ($(node).hasClass('utm_tracker') || $(node).find('.utm_tracker').length > 0) {
+                                shouldReprocess = true;
+                            }
+                        }
+                    });
+                }
+            });
+            
+            if (shouldReprocess) {
+                setTimeout(processLinks, 100); // Pequeno delay para garantir que o DOM esteja pronto
+            }
+        });
+
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    }
 });
 </script>
 
