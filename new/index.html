@@ -394,48 +394,100 @@
     <script src="assets/js/scripts.js"></script>
 
 <script>
-        $(document).ready(function () {
-            // Função para obter o valor de um parâmetro da URL
-            function getUrlParameter(name) {
-                name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-                var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-                var results = regex.exec(window.location.search);
-                return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+$(document).ready(function () {
+    // Função para obter o valor de um parâmetro da URL
+    function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results = regex.exec(window.location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    }
+
+    // Lista de parâmetros que queremos capturar da URL
+    var paramsToCapture = [
+        'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'src',
+        'gclid', 'wbraid', 'gbraid',
+        'keyword'
+    ];
+
+    // Captura os parâmetros da URL atuais
+    var capturedParams = {};
+    paramsToCapture.forEach(function (param) {
+        var value = getUrlParameter(param);
+        if (value) {
+            capturedParams[param] = value;
+            // Também salva como cookie por 30 dias (mantendo funcionalidade original)
+            $.cookie(param, value, { expires: 30, path: '/' });
+        }
+    });
+
+    // Função para adicionar parâmetros UTM a uma URL
+    function addUtmParamsToUrl(url) {
+        var urlObj = new URL(url, window.location.origin);
+        
+        // Adiciona os parâmetros capturados à URL
+        Object.keys(capturedParams).forEach(function(param) {
+            // Só adiciona se o parâmetro não existir na URL de destino
+            if (!urlObj.searchParams.has(param)) {
+                urlObj.searchParams.set(param, capturedParams[param]);
             }
-
-            // Função para salvar UTMs nos cookies
-            function saveUtmsToCookies() {
-                // Lista de parâmetros que queremos capturar da URL
-                var paramsToCapture = [
-                    'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'src',
-                    'gclid', 'wbraid', 'gbraid',
-                    'keyword'
-                ];
-
-                // Captura os parâmetros da URL e salva como cookie por 30 dias
-                paramsToCapture.forEach(function (param) {
-                    var value = getUrlParameter(param);
-                    if (value) {
-                        $.cookie(param, value, { expires: 30, path: '/' });
-                        console.log('Cookie salvo:', param, '=', value);
-                    }
-                });
-            }
-
-            // Event listener para o clique do botão
-            $('#descobrir-verdade').on('click', function(e) {
-                // Salva as UTMs nos cookies antes de prosseguir
-                saveUtmsToCookies();
-                
-                // O link continuará funcionando normalmente após salvar os cookies
-                // Se quiser adicionar um delay, descomente as linhas abaixo:
-                // e.preventDefault();
-                // setTimeout(function() {
-                //     window.location.href = './concluido';
-                // }, 100);
-            });
         });
-    </script>
+        
+        return urlObj.toString();
+    }
+
+    // Intercepta todos os links da página e adiciona os UTMs
+    $('a').each(function() {
+        var $link = $(this);
+        var href = $link.attr('href');
+        
+        // Verifica se é um link interno (não externo)
+        if (href && !href.startsWith('http') && !href.startsWith('mailto:') && !href.startsWith('tel:') && !href.startsWith('#')) {
+            var newHref = addUtmParamsToUrl(href);
+            $link.attr('href', newHref);
+        }
+        // Para links internos com domínio completo
+        else if (href && href.includes(window.location.hostname)) {
+            var newHref = addUtmParamsToUrl(href);
+            $link.attr('href', newHref);
+        }
+    });
+
+    // Para links adicionados dinamicamente depois do carregamento da página
+    $(document).on('click', 'a', function(e) {
+        var $link = $(this);
+        var href = $link.attr('href');
+        
+        if (href && Object.keys(capturedParams).length > 0) {
+            // Verifica se é um link interno que ainda não foi processado
+            if ((!href.startsWith('http') || href.includes(window.location.hostname)) 
+                && !href.includes('utm_') && !href.startsWith('mailto:') && !href.startsWith('tel:') && !href.startsWith('#')) {
+                
+                e.preventDefault();
+                var newHref = addUtmParamsToUrl(href);
+                window.location.href = newHref;
+            }
+        }
+    });
+
+    // Função pública para usar em formulários ou outros elementos
+    window.addUtmToUrl = function(url) {
+        return addUtmParamsToUrl(url);
+    };
+
+    // Para formulários - adiciona UTMs como campos hidden
+    $('form').each(function() {
+        var $form = $(this);
+        
+        Object.keys(capturedParams).forEach(function(param) {
+            // Verifica se já não existe um campo com esse nome
+            if ($form.find('[name="' + param + '"]').length === 0) {
+                $form.append('<input type="hidden" name="' + param + '" value="' + capturedParams[param] + '">');
+            }
+        });
+    });
+});
+</script>
 
 </body>
 
