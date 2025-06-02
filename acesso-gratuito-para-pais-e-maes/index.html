@@ -10,6 +10,46 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 
+
+  <script>
+  (function () {
+    // Lista de chaves UTM que queremos capturar
+    const utmKeys = [
+      'utm_source', 'utm_medium', 'utm_campaign', 'utm_term',
+      'utm_content', 'utm_id', 'gclid', 'fbclid', 'msclkid',
+      'ttclid', 'twclid', 'li_fat_id', 'src', 'ref',
+      'affiliate_id', 'partner_id'
+    ];
+
+    const urlParams = new URLSearchParams(window.location.search);
+    let found = false;
+
+    utmKeys.forEach(key => {
+      const value = urlParams.get(key);
+      if (value) {
+        found = true;
+        // Salvar em localStorage
+        try {
+          localStorage.setItem(key, value);
+        } catch (e) {
+          console.warn(`Erro gravando localStorage[${key}]:`, e);
+        }
+        // Salvar em cookie por 30 dias
+        try {
+          document.cookie = `${key}=${encodeURIComponent(value)}; path=/; max-age=2592000; SameSite=Lax`;
+        } catch (e) {
+          console.warn(`Erro gravando cookie[${key}]:`, e);
+        }
+      }
+    });
+
+    if (found) {
+      console.log('UTMs capturados em localStorage + cookie');
+    }
+  })();
+</script>
+
+
 </head>
 
 <body>
