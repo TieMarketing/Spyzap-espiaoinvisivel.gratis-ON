@@ -204,50 +204,246 @@
         $(".descounttime").html(value);
     </script>
 
-
-   <!-- Certifique-se de que jQuery e jquery.cookie já foram carregados antes deste script -->
-
 <script>
 $(document).ready(function() {
-    // Função para obter o valor de um cookie
-    function getCookie(name) {
-        return $.cookie(name) || '';
+    // ===== SISTEMA UNIFICADO DE UTMs PARA PÁGINAS MARIDO/ESPOSA =====
+    
+    console.log('🚀 Iniciando captura de UTMs na página marido/esposa');
+    console.log('📍 URL atual:', window.location.href);
+    
+    // Função para obter UTMs da URL atual
+    function getUTMsFromURL() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const utmParams = {};
+        const paramsToCapture = [
+            'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'src',
+            'gclid', 'wbraid', 'gbraid', 'keyword', 'device', 'network'
+        ];
+
+        paramsToCapture.forEach(param => {
+            if (urlParams.has(param)) {
+                utmParams[param] = urlParams.get(param);
+            }
+        });
+
+        return utmParams;
     }
 
-    // Lista de parâmetros que serão aplicados nos links
-    var paramsToCapture = [
-        'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'src',
-        'gclid', 'wbraid', 'gbraid',
-        'keyword', 'device', 'network'
-    ];
-
-    // Função para adicionar os parâmetros à URL
-    function addParamsToUrl(url) {
+    // Função para obter UTMs do localStorage
+    function getUTMsFromStorage() {
         try {
-            var newUrl = new URL(url, window.location.origin); // suporta URLs relativas
-            paramsToCapture.forEach(function(param) {
-                var cookieValue = getCookie(param);
-                if (cookieValue && !newUrl.searchParams.has(param)) {
-                    newUrl.searchParams.set(param, cookieValue);
+            const storedUtms = localStorage.getItem('utmParams');
+            return storedUtms ? JSON.parse(storedUtms) : {};
+        } catch (e) {
+            console.error('❌ Erro ao recuperar UTMs do localStorage:', e);
+            return {};
+        }
+    }
+
+    // Função para obter UTMs dos cookies
+    function getUTMsFromCookies() {
+        const utmParams = {};
+        const paramsToCapture = [
+            'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'src',
+            'gclid', 'wbraid', 'gbraid', 'keyword', 'device', 'network'
+        ];
+
+        paramsToCapture.forEach(param => {
+            const cookieValue = $.cookie(param);
+            if (cookieValue) {
+                utmParams[param] = cookieValue;
+            }
+        });
+
+        return utmParams;
+    }
+
+    // Função para salvar UTMs no localStorage e cookies
+    function saveUTMs(utmParams) {
+        if (Object.keys(utmParams).length > 0) {
+            // Salva no localStorage
+            try {
+                localStorage.setItem('utmParams', JSON.stringify(utmParams));
+                console.log('✅ UTMs salvos no localStorage:', utmParams);
+            } catch (e) {
+                console.error('❌ Erro ao salvar no localStorage:', e);
+            }
+
+            // Salva nos cookies para compatibilidade
+            Object.keys(utmParams).forEach(param => {
+                $.cookie(param, utmParams[param], { expires: 30, path: '/' });
+            });
+            console.log('✅ UTMs salvos nos cookies');
+        }
+    }
+
+    // CAPTURA UNIFICADA DE UTMs com prioridades
+    function captureAllUTMs() {
+        let finalUTMs = {};
+
+        // 1. Primeiro: UTMs da URL atual (maior prioridade)
+        const urlUTMs = getUTMsFromURL();
+        if (Object.keys(urlUTMs).length > 0) {
+            finalUTMs = { ...finalUTMs, ...urlUTMs };
+            console.log('✅ UTMs capturados da URL atual:', urlUTMs);
+        }
+
+        // 2. Segundo: UTMs do localStorage (fallback)
+        if (Object.keys(finalUTMs).length === 0) {
+            const storageUTMs = getUTMsFromStorage();
+            if (Object.keys(storageUTMs).length > 0) {
+                finalUTMs = { ...finalUTMs, ...storageUTMs };
+                console.log('✅ UTMs recuperados do localStorage:', storageUTMs);
+            }
+        }
+
+        // 3. Terceiro: UTMs dos cookies (último recurso)
+        if (Object.keys(finalUTMs).length === 0) {
+            const cookieUTMs = getUTMsFromCookies();
+            if (Object.keys(cookieUTMs).length > 0) {
+                finalUTMs = { ...finalUTMs, ...cookieUTMs };
+                console.log('✅ UTMs recuperados dos cookies:', cookieUTMs);
+            }
+        }
+
+        // Salva os UTMs capturados para uso futuro
+        if (Object.keys(finalUTMs).length > 0) {
+            saveUTMs(finalUTMs);
+        } else {
+            console.log('⚠️ Nenhum UTM encontrado em nenhuma fonte');
+        }
+
+        return finalUTMs;
+    }
+
+    // Função para adicionar UTMs a uma URL
+    function addUTMsToUrl(url, utmParams) {
+        try {
+            if (Object.keys(utmParams).length === 0) {
+                return url;
+            }
+
+            const newUrl = new URL(url, window.location.origin);
+            
+            Object.keys(utmParams).forEach(param => {
+                if (!newUrl.searchParams.has(param)) {
+                    newUrl.searchParams.set(param, utmParams[param]);
                 }
             });
+            
+            console.log('🔗 URL atualizada:', url, '→', newUrl.href);
             return newUrl.href;
         } catch (e) {
-            return url; // Se a URL for inválida (ex: javascript:), retorna a original
+            console.error('❌ Erro ao processar URL:', url, e);
+            return url;
         }
     }
 
-    // Aplica os parâmetros em todos os links com a classe .utm_tracker
-    $('.utm_tracker').each(function() {
-        var originalUrl = $(this).attr('href');
-        if (originalUrl &&
-            !originalUrl.startsWith('javascript:') &&
-            !originalUrl.startsWith('mailto:') &&
-            !originalUrl.startsWith('#')) {
-            var updatedUrl = addParamsToUrl(originalUrl);
-            $(this).attr('href', updatedUrl);
+    // Captura todos os UTMs disponíveis
+    const capturedUTMs = captureAllUTMs();
+
+    // Aplica UTMs em TODOS os links da página (não só .utm_tracker)
+    function applyUTMsToAllLinks() {
+        console.log('🔧 Aplicando UTMs em todos os links da página');
+        
+        $('a[href]').each(function() {
+            const $link = $(this);
+            const originalUrl = $link.attr('href');
+            
+            if (originalUrl && 
+                !originalUrl.startsWith('javascript:') &&
+                !originalUrl.startsWith('mailto:') &&
+                !originalUrl.startsWith('tel:') &&
+                !originalUrl.startsWith('#') &&
+                !$link.data('utm-processed')) {
+                
+                const updatedUrl = addUTMsToUrl(originalUrl, capturedUTMs);
+                if (updatedUrl !== originalUrl) {
+                    $link.attr('href', updatedUrl);
+                    $link.data('utm-processed', true);
+                    console.log(`✅ UTMs aplicados no link: ${originalUrl} → ${updatedUrl}`);
+                }
+            }
+        });
+    }
+
+    // Aplica UTMs em todos os links existentes
+    applyUTMsToAllLinks();
+
+    // Event listener para interceptar cliques e garantir UTMs
+    $(document).on('click', 'a[href]', function(e) {
+        const $link = $(this);
+        const href = $link.attr('href');
+        
+        if (href && 
+            !href.startsWith('javascript:') &&
+            !href.startsWith('mailto:') &&
+            !href.startsWith('tel:') &&
+            !href.startsWith('#') &&
+            Object.keys(capturedUTMs).length > 0) {
+            
+            // Verifica se os UTMs já foram aplicados
+            const hasUTMs = Object.keys(capturedUTMs).some(param => 
+                href.includes(param + '=')
+            );
+            
+            if (!hasUTMs) {
+                e.preventDefault();
+                const newHref = addUTMsToUrl(href, capturedUTMs);
+                console.log('🎯 Redirecionando com UTMs:', newHref);
+                window.location.href = newHref;
+            }
         }
     });
+
+    // Observer para detectar novos links adicionados dinamicamente
+    if (typeof MutationObserver !== 'undefined') {
+        const observer = new MutationObserver(function(mutations) {
+            let shouldReapply = false;
+            
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+                    for (let i = 0; i < mutation.addedNodes.length; i++) {
+                        const node = mutation.addedNodes[i];
+                        if (node.nodeType === 1) { // Element node
+                            if (node.tagName === 'A' || node.querySelector('a')) {
+                                shouldReapply = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            });
+            
+            if (shouldReapply) {
+                setTimeout(applyUTMsToAllLinks, 100);
+            }
+        });
+        
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    }
+
+    // Função pública para debug
+    window.debugUTMsMaridoEsposa = function() {
+        console.log('=== DEBUG UTMs MARIDO/ESPOSA ===');
+        console.log('URL atual:', window.location.href);
+        console.log('UTMs na URL:', getUTMsFromURL());
+        console.log('UTMs no localStorage:', getUTMsFromStorage());
+        console.log('UTMs nos cookies:', getUTMsFromCookies());
+        console.log('UTMs capturados (final):', capturedUTMs);
+        console.log('================================');
+    };
+
+    // Log final do status
+    if (Object.keys(capturedUTMs).length > 0) {
+        console.log('🎉 UTM TRACKING ATIVO - Parâmetros capturados:', capturedUTMs);
+        console.log('🔗 Todos os links da página foram atualizados com UTMs');
+    } else {
+        console.log('⚠️ NENHUM UTM ENCONTRADO - Verifique se a página anterior está passando os parâmetros corretamente');
+    }
 });
 </script>
 
