@@ -87,6 +87,48 @@ $(document).ready(function () {
     // Capturar UTMs na inicialização
     captureAndSaveUTMs();
 
+    // ===== TRATAMENTO ESPECÍFICO PARA BOTÕES DA SEÇÃO NotImg =====
+    
+    // Função para aplicar UTMs nos botões da seção NotImg
+    function applyUTMsToNotImgButtons() {
+        console.log('🔧 Aplicando UTMs nos botões da seção NotImg');
+        
+        $('.NotImg a[href]').each(function() {
+            const $link = $(this);
+            const originalHref = $link.attr('href');
+            
+            if (originalHref && !$link.data('utm-processed')) {
+                // Múltiplas opções de URL para cada botão
+                let possibleUrls = [];
+                
+                if (originalHref.includes('marido')) {
+                    possibleUrls = [
+                        './marido/',
+                        './marido/index.html',
+                        'marido/',
+                        'marido/index.html'
+                    ];
+                } else if (originalHref.includes('esposa')) {
+                    possibleUrls = [
+                        './esposa/',
+                        './esposa/index.html',
+                        'esposa/',
+                        'esposa/index.html'
+                    ];
+                } else {
+                    // Para outros links, usa o href original
+                    possibleUrls = [originalHref];
+                }
+                
+                const newHref = buildUrlWithUTMs(possibleUrls[0]);
+                $link.attr('href', newHref);
+                $link.data('utm-processed', true);
+                
+                console.log(`✅ UTMs aplicados no botão: ${originalHref} → ${newHref}`);
+            }
+        });
+    }
+
     // ===== FIM - GERENCIAMENTO DE UTMs CORRIGIDO =====
 
     // Variáveis globais
@@ -244,6 +286,11 @@ $(document).ready(function () {
                 $('.NotImg').show();
                 $('.part-3').hide();
                 $('.withImg').hide();
+                
+                // Aplica UTMs nos botões da seção NotImg após mostrar a seção
+                setTimeout(() => {
+                    applyUTMsToNotImgButtons();
+                }, 100);
             }
         });
 
@@ -436,6 +483,47 @@ $(document).ready(function () {
         window.location.href = newUrl;
     });
 
+    // Event listeners específicos para os botões da seção NotImg
+    $(document).on('click', '.NotImg a[href*="marido"], .NotImg a[href*="esposa"]', function(e) {
+        e.preventDefault();
+        
+        const $link = $(this);
+        const originalHref = $link.attr('href');
+        
+        console.log('👫 Botão da seção NotImg clicado:', originalHref);
+        
+        // Determina as opções de URL baseado no href
+        let possibleUrls = [];
+        
+        if (originalHref.includes('marido')) {
+            possibleUrls = [
+                './marido/',
+                './marido/index.html',
+                'marido/',
+                'marido/index.html'
+            ];
+            console.log('👨 Redirecionando para seção Marido');
+        } else if (originalHref.includes('esposa')) {
+            possibleUrls = [
+                './esposa/',
+                './esposa/index.html',
+                'esposa/',
+                'esposa/index.html'
+            ];
+            console.log('👩 Redirecionando para seção Esposa');
+        }
+        
+        if (possibleUrls.length > 0) {
+            const finalUrl = buildUrlWithUTMs(possibleUrls[0]);
+            console.log('🎯 URL final com UTMs:', finalUrl);
+            
+            // Pequeno delay para garantir que os logs apareçam
+            setTimeout(() => {
+                window.location.href = finalUrl;
+            }, 100);
+        }
+    });
+
     // Event listener CORRIGIDO para o botão "descobrir a verdade"
     $(document).on('click', '#descobrir-verdade', function (e) {
         e.preventDefault();
@@ -453,6 +541,36 @@ $(document).ready(function () {
         console.log('🎯 Redirecionando para:', redirectUrl);
         window.location.href = redirectUrl;
     });
+
+    // Observa quando a seção NotImg fica visível e aplica UTMs
+    const notImgObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+                const $notImg = $('.NotImg');
+                
+                // Verifica se a seção ficou visível
+                if ($notImg.is(':visible') && !$notImg.data('utms-applied')) {
+                    console.log('👁️ Seção NotImg ficou visível, aplicando UTMs nos botões');
+                    applyUTMsToNotImgButtons();
+                    $notImg.data('utms-applied', true);
+                }
+            }
+        });
+    });
+    
+    // Inicia a observação da seção NotImg
+    const notImgElement = document.querySelector('.NotImg');
+    if (notImgElement) {
+        notImgObserver.observe(notImgElement, {
+            attributes: true,
+            attributeFilter: ['style']
+        });
+    }
+    
+    // Também aplica UTMs imediatamente se a seção já estiver visível
+    if ($('.NotImg').is(':visible')) {
+        applyUTMsToNotImgButtons();
+    }
 
     // Inicia a função de mudança de perfis fictícios
     startRandomChange();
@@ -560,3 +678,4 @@ var dayOfTheWeek = getNow.getDay();
 getNow.setTime(getNow.getTime() - 0 * 24 * 60 * 60 * 1000);
 var value = getdayNames[(getNow.getDay())] + ", " + getNow.getDate() + " de " + getdayMonth[(getNow.getMonth())] + " " + " de " + getNow.getFullYear();
 $(".descounttime").html(value);
+
