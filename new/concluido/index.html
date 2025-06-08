@@ -6564,7 +6564,8 @@ $(document).ready(function() {
     // Função para adicionar os parâmetros à URL
     function addParamsToUrl(url) {
         try {
-            var newUrl = new URL(url, window.location.origin); // suporta URLs relativas
+            // Usa window.location.href como base para respeitar caminhos relativos
+            var newUrl = new URL(url, window.location.href); // suporta URLs relativas
             
             // Adiciona os parâmetros capturados
             Object.keys(capturedParams).forEach(function(param) {

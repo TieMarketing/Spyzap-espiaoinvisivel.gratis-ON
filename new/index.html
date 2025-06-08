@@ -423,7 +423,8 @@ $(document).ready(function () {
 
     // Função para adicionar parâmetros UTM a uma URL
     function addUtmParamsToUrl(url) {
-        var urlObj = new URL(url, window.location.origin);
+        // Use window.location.href como base para manter o caminho relativo
+        var urlObj = new URL(url, window.location.href);
         
         // Adiciona os parâmetros capturados à URL
         Object.keys(capturedParams).forEach(function(param) {
