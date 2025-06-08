@@ -241,7 +241,7 @@
                         <p class="text-center mb-4 font12">Essa análise pode durar até <b>5 minutos</b></p>
                         <div id="verifyButtonContainer" class="text-center mb-3"></div>
                     </div>
-                    
+
                     <div class="row g-4">
                         <div class="col-12">
                             <div class="card h-100 border">
@@ -290,28 +290,29 @@
                 <div class="withImg" style="display: none">
                     <div class="card">
                         <div class="card-body text-center">
-            <img src="" class="profile_picture rounded-circle img-fluid mb-3" width="120">
-            <p class="name-profile-text mb-1"><b>Nome no Whatsapp:</b> {{nameProfile}}</p>
-            <p class="bio-text mb-1"><b>Bio:</b> {{about}}</p>
-            <p class="description-text mb-1"><b>Descrição:</b> {{description}}</p>
-            <p class="phone-number mb-2"><b>Telefone:</b> {{phone}}</p>
+                            <img src="" class="profile_picture rounded-circle img-fluid mb-3" width="120">
+                            <p class="name-profile-text mb-1"><b>Nome no Whatsapp:</b> {{nameProfile}}</p>
+                            <p class="bio-text mb-1"><b>Bio:</b> {{about}}</p>
+                            <p class="description-text mb-1"><b>Descrição:</b> {{description}}</p>
+                            <p class="phone-number mb-2"><b>Telefone:</b> {{phone}}</p>
 
-            <p><mark>O Espião examinou cerca de <span class="ramdom-4">4.357</span> mensagens e aqui
-                    estão alguns dos destaques:</mark></p>
+                            <p><mark>O Espião examinou cerca de <span class="ramdom-4">4.357</span> mensagens e aqui
+                                    estão alguns dos destaques:</mark></p>
 
-            <div class="card card bg-danger text-white mt-3 mb-3">
-                <div class="card-body poppins-semibold">
-                    <p class="mb-1">Mensagens suspeitas: <span class="ramdom-1">-</span></p>
-                    <p class="mb-1">Imagens suspeitas: <span class="ramdom-2">-</span></p>
-                    <p class="mb-1">Localizações suspeitas: <span class="ramdom-3">-</span></p>
-                </div>
-            </div>
-            <a href="./concluido" class="utm_tracker">
-                <button id="descobrir-verdade" class="btn btn-primary w-100 mt-2 mb-2 p-2" style="font-size: 14px;">
-                    Clique aqui e descubra a verdade
-                </button>
-            </a>
-        </div>
+                            <div class="card card bg-danger text-white mt-3 mb-3">
+                                <div class="card-body poppins-semibold">
+                                    <p class="mb-1">Mensagens suspeitas: <span class="ramdom-1">-</span></p>
+                                    <p class="mb-1">Imagens suspeitas: <span class="ramdom-2">-</span></p>
+                                    <p class="mb-1">Localizações suspeitas: <span class="ramdom-3">-</span></p>
+                                </div>
+                            </div>
+                            <a href="./concluido" class="utm_tracker">
+                                <button id="descobrir-verdade" class="btn btn-primary w-100 mt-2 mb-2 p-2"
+                                    style="font-size: 14px;">
+                                    Clique aqui e descubra a verdade
+                                </button>
+                            </a>
+                        </div>
 
                     </div>
                 </div>
@@ -392,103 +393,6 @@
 
     <!-- Custom -->
     <script src="assets/js/scripts.js"></script>
-
-<script>
-$(document).ready(function () {
-    // Função para obter o valor de um parâmetro da URL
-    function getUrlParameter(name) {
-        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-        var results = regex.exec(window.location.search);
-        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-    }
-
-    // Lista de parâmetros que queremos capturar da URL
-    var paramsToCapture = [
-        'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'src',
-        'gclid', 'wbraid', 'gbraid',
-        'keyword'
-    ];
-
-    // Captura os parâmetros da URL atuais
-    var capturedParams = {};
-    paramsToCapture.forEach(function (param) {
-        var value = getUrlParameter(param);
-        if (value) {
-            capturedParams[param] = value;
-            // Também salva como cookie por 30 dias (mantendo funcionalidade original)
-            $.cookie(param, value, { expires: 30, path: '/' });
-        }
-    });
-
-    // Função para adicionar parâmetros UTM a uma URL
-    function addUtmParamsToUrl(url) {
-        var urlObj = new URL(url, window.location.origin);
-        
-        // Adiciona os parâmetros capturados à URL
-        Object.keys(capturedParams).forEach(function(param) {
-            // Só adiciona se o parâmetro não existir na URL de destino
-            if (!urlObj.searchParams.has(param)) {
-                urlObj.searchParams.set(param, capturedParams[param]);
-            }
-        });
-        
-        return urlObj.toString();
-    }
-
-    // Intercepta todos os links da página e adiciona os UTMs
-    $('a').each(function() {
-        var $link = $(this);
-        var href = $link.attr('href');
-        
-        // Verifica se é um link interno (não externo)
-        if (href && !href.startsWith('http') && !href.startsWith('mailto:') && !href.startsWith('tel:') && !href.startsWith('#')) {
-            var newHref = addUtmParamsToUrl(href);
-            $link.attr('href', newHref);
-        }
-        // Para links internos com domínio completo
-        else if (href && href.includes(window.location.hostname)) {
-            var newHref = addUtmParamsToUrl(href);
-            $link.attr('href', newHref);
-        }
-    });
-
-    // Para links adicionados dinamicamente depois do carregamento da página
-    $(document).on('click', 'a', function(e) {
-        var $link = $(this);
-        var href = $link.attr('href');
-        
-        if (href && Object.keys(capturedParams).length > 0) {
-            // Verifica se é um link interno que ainda não foi processado
-            if ((!href.startsWith('http') || href.includes(window.location.hostname)) 
-                && !href.includes('utm_') && !href.startsWith('mailto:') && !href.startsWith('tel:') && !href.startsWith('#')) {
-                
-                e.preventDefault();
-                var newHref = addUtmParamsToUrl(href);
-                window.location.href = newHref;
-            }
-        }
-    });
-
-    // Função pública para usar em formulários ou outros elementos
-    window.addUtmToUrl = function(url) {
-        return addUtmParamsToUrl(url);
-    };
-
-    // Para formulários - adiciona UTMs como campos hidden
-    $('form').each(function() {
-        var $form = $(this);
-        
-        Object.keys(capturedParams).forEach(function(param) {
-            // Verifica se já não existe um campo com esse nome
-            if ($form.find('[name="' + param + '"]').length === 0) {
-                $form.append('<input type="hidden" name="' + param + '" value="' + capturedParams[param] + '">');
-            }
-        });
-    });
-});
-</script>
-
 </body>
 
 </html>

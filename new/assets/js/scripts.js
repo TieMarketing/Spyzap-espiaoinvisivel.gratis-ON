@@ -1,14 +1,104 @@
-$(document).ready(function() {
+$(document).ready(function () {
+    // ===== INÍCIO - GERENCIAMENTO DE UTMs CORRIGIDO =====
+
+    // Função centralizada para capturar e salvar UTMs
+    function captureAndSaveUTMs() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const utmParams = {};
+
+        // Lista de parâmetros UTM para capturar
+        const paramsToCapture = [
+            'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content',
+            'src', 'gclid', 'wbraid', 'gbraid', 'keyword', 'device', 'network'
+        ];
+
+        paramsToCapture.forEach(param => {
+            if (urlParams.has(param)) {
+                utmParams[param] = urlParams.get(param);
+            }
+        });
+
+        // Salvar no localStorage se houver parâmetros
+        if (Object.keys(utmParams).length > 0) {
+            localStorage.setItem('utmParams', JSON.stringify(utmParams));
+            console.log('✅ UTMs capturados e salvos:', utmParams);
+        } else {
+            console.log('ℹ️ Nenhum UTM encontrado na URL atual');
+        }
+    }
+
+    // Função CORRIGIDA para obter UTMs (prioriza URL atual, usa localStorage como fallback)
+    function getUTMParams() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const utmParams = {};
+        const paramsToCapture = [
+            'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content',
+            'src', 'gclid', 'wbraid', 'gbraid', 'keyword', 'device', 'network'
+        ];
+
+        // Primeiro, tenta capturar da URL atual
+        paramsToCapture.forEach(param => {
+            if (urlParams.has(param)) {
+                utmParams[param] = urlParams.get(param);
+            }
+        });
+
+        // Se não encontrou UTMs na URL atual, usa o localStorage como fallback
+        if (Object.keys(utmParams).length === 0) {
+            const storedUtms = localStorage.getItem('utmParams');
+            if (storedUtms) {
+                try {
+                    const parsedUtms = JSON.parse(storedUtms);
+                    Object.assign(utmParams, parsedUtms);
+                    console.log('✅ UTMs recuperados do localStorage:', utmParams);
+                } catch (e) {
+                    console.error('❌ Erro ao parsear UTMs do localStorage:', e);
+                }
+            } else {
+                console.log('⚠️ Nenhum UTM encontrado no localStorage');
+            }
+        } else {
+            console.log('✅ UTMs encontrados na URL atual:', utmParams);
+        }
+
+        return utmParams;
+    }
+
+    // Função UNIFICADA para construir URL com UTMs
+    function buildUrlWithUTMs(baseUrl) {
+        const utmParams = getUTMParams();
+
+        if (Object.keys(utmParams).length === 0) {
+            console.log('⚠️ Nenhum UTM encontrado para adicionar à URL:', baseUrl);
+            return baseUrl;
+        }
+
+        const utmString = Object.keys(utmParams)
+            .map(key => `${key}=${encodeURIComponent(utmParams[key])}`)
+            .join('&');
+
+        const separator = baseUrl.includes('?') ? '&' : '?';
+        const finalUrl = `${baseUrl}${separator}${utmString}`;
+        
+        console.log('🔗 URL construída:', baseUrl, '→', finalUrl);
+        return finalUrl;
+    }
+
+    // Capturar UTMs na inicialização
+    captureAndSaveUTMs();
+
+    // ===== FIM - GERENCIAMENTO DE UTMs CORRIGIDO =====
+
     // Variáveis globais
     let randomChangeInterval;
     const userLocation = 'Brasil';
     const initialBackRedirectUrl = 'https://descubra-tudospy.online/back-r-passo1/';
 
-    // Função para configurar o URL de redirecionamento dinâmico
+    // Função para configurar o URL de redirecionamento dinâmico - CORRIGIDA
     let urlBackRedirect = initialBackRedirectUrl;
     const setBackRedirect = (newUrl) => {
-        urlBackRedirect = newUrl.trim() + (newUrl.indexOf("?") > 0 ? '&' : '?') + document.location.search.replace('?', '').toString();
-        
+        urlBackRedirect = buildUrlWithUTMs(newUrl.trim());
+
         // Reinicia a lógica de manipulação de histórico após a atualização
         history.replaceState({}, "", location.href);
         history.pushState({}, "", location.href);
@@ -23,7 +113,7 @@ $(document).ready(function() {
             location.href = urlBackRedirect;
         }, 1);
     };
-    
+
     const texts = [
         'Conectando ao servidor do WhatsApp...',
         'Simulando IP na região de ' + userLocation + '...',
@@ -34,45 +124,44 @@ $(document).ready(function() {
         'Autenticando como {phone}...',
         'Acesso concedido, redirecionando para o servidor solicitado...'
     ];
-    
-// Funções principais
-function updateTextRotation(phone) {
-    let index = 0;
-    const totalStages = texts.length;
-    const textElement = $('.text_ramdom');
-    const progressBar = $('.progress-bar');
 
-    const interval = setInterval(() => {
-        if (index >= totalStages) {
-            clearInterval(interval);
-            
-            // Insere o vídeo quando part-3 é exibida
-            insertVturbVideo();
-            
-            // Exibir part-3 após o progresso
-            switchSections('.part-1', '.part-3'); 
-            
-            startRandomValuesInsertion();
-            
-            // Fechar o modal após um pequeno delay para a transição
-            setTimeout(() => {
-                $('#investigationModal').modal('hide');
-                startAnalysisProgressBar(); // Iniciar o progresso da barra na part-3
-            }, 500);
+    // Funções principais
+    function updateTextRotation(phone) {
+        let index = 0;
+        const totalStages = texts.length;
+        const textElement = $('.text_ramdom');
+        const progressBar = $('.progress-bar');
 
-            return;
-        }
+        const interval = setInterval(() => {
+            if (index >= totalStages) {
+                clearInterval(interval);
 
-        // Atualiza o texto e a cor
-        const currentText = texts[index].replace('{phone}', phone);
-        setTextColor(textElement, currentText);
+                // Insere o vídeo quando part-3 é exibida
+                insertVturbVideo();
 
-        // Atualiza a barra de progresso
-        updateProgressBar(progressBar, index, totalStages);
-        index++;
-    }, 3000);
-}
+                // Exibir part-3 após o progresso
+                switchSections('.part-1', '.part-3');
 
+                startRandomValuesInsertion();
+
+                // Fechar o modal após um pequeno delay para a transição
+                setTimeout(() => {
+                    $('#investigationModal').modal('hide');
+                    startAnalysisProgressBar(); // Iniciar o progresso da barra na part-3
+                }, 500);
+
+                return;
+            }
+
+            // Atualiza o texto e a cor
+            const currentText = texts[index].replace('{phone}', phone);
+            setTextColor(textElement, currentText);
+
+            // Atualiza a barra de progresso
+            updateProgressBar(progressBar, index, totalStages);
+            index++;
+        }, 3000);
+    }
 
     function setTextColor(element, text) {
         element.text(text).css('color', 'black');
@@ -83,26 +172,26 @@ function updateTextRotation(phone) {
         const percentage = ((stage + 1) / totalStages) * 100;
         progressBar.css('width', percentage + '%')
             .attr('aria-valuenow', percentage)
-            .text(percentage + '%'); // Atualiza o texto interno com a porcentagem
+            .text(percentage + '%');
     }
 
     // Função para iniciar a barra de progresso na part-3
     function startAnalysisProgressBar(totalTimeInSeconds = 368) {
         let width = 0;
         const progressBar = $('.progress_analysct_number .progress-bar');
-    
+
         // Reinicia a barra de progresso para 0%
         progressBar.css('width', '0%')
             .attr('aria-valuenow', 0)
             .text('0%');
-    
+
         // Calcula o intervalo com base no tempo total fornecido
         const intervalTime = (totalTimeInSeconds * 1000) / 100;
-    
+
         const interval = setInterval(() => {
             if (width >= 100) {
                 clearInterval(interval);
-                setTimeout(handleFinalState, 3000); // Chamando handleFinalState após o progresso alcançar 100%
+                setTimeout(handleFinalState, 3000);
             } else {
                 width++;
                 progressBar.css('width', width + '%')
@@ -112,36 +201,52 @@ function updateTextRotation(phone) {
         }, intervalTime);
     }
 
-
+    // Função handleFinalState CORRIGIDA com múltiplas opções de redirecionamento
     function handleFinalState() {
         const savedProfilePic = $.cookie('profilePic');
         const aboutText = $.cookie('about') || '';
         const descriptionText = $.cookie('description') || '';
 
-
-        // Adiciona o botão de verificação
         const verifyButton = $('<button>', {
             class: 'btn btn-primary w-100 mt-3 mb-3',
             text: 'Verificar Resultado'
         });
 
-        // Adiciona o botão no novo container
         $('#verifyButtonContainer').html(verifyButton);
 
-        // Adiciona o evento de clique no botão
-        verifyButton.on('click', function() {
+        verifyButton.on('click', function () {
+            console.log('🔄 Botão "Verificar Resultado" clicado');
+            
+            // Debug: verificar UTMs antes do redirecionamento
+            const currentUtms = getUTMParams();
+            console.log('📊 UTMs disponíveis para redirecionamento:', currentUtms);
+            
             if (savedProfilePic) {
-                // Se tiver imagem, redireciona para ./concluido
-                window.location.href = './concluido';
+                // Múltiplas opções de URL para garantir que funcione
+                const possibleUrls = [
+                    './concluido/',           // Opção 1: com barra final
+                    './concluido/index.html', // Opção 2: com index.html explícito
+                    'concluido/',             // Opção 3: sem ponto inicial
+                    'concluido/index.html'    // Opção 4: sem ponto inicial + index.html
+                ];
+                
+                // Tenta a primeira opção com UTMs
+                const redirectUrl = buildUrlWithUTMs(possibleUrls[0]);
+                console.log('🎯 Redirecionando para:', redirectUrl);
+                
+                // Adiciona um pequeno delay para garantir que os logs sejam visíveis
+                setTimeout(() => {
+                    window.location.href = redirectUrl;
+                }, 100);
+                
             } else {
-                // Se não tiver imagem, mostra NotImg e esconde part-3
+                console.log('⚠️ Nenhuma foto de perfil encontrada, mostrando seção NotImg');
                 $('.NotImg').show();
                 $('.part-3').hide();
                 $('.withImg').hide();
             }
         });
 
-        // Configura o estado inicial
         if (savedProfilePic) {
             $('.profile_picture').attr('src', savedProfilePic).show();
             $('.withImg').hide();
@@ -154,39 +259,38 @@ function updateTextRotation(phone) {
         }
     }
 
-function updateProfileInfo(nameProfile, about, description) {
-    // Obtém o telefone original direto do input
-    const originalPhone = $('#phone').val();
+    function updateProfileInfo(nameProfile, about, description) {
+        // Obtém o telefone original direto do input
+        const originalPhone = $('#phone').val();
 
-    // Atualiza ou oculta o nome do perfil
-    if (nameProfile) {
-        $('.name-profile-text').html('<b>Nome no Whatsapp:</b> ' + nameProfile).show();
-    } else {
-        $('.name-profile-text').hide();
+        // Atualiza ou oculta o nome do perfil
+        if (nameProfile) {
+            $('.name-profile-text').html('<b>Nome no Whatsapp:</b> ' + nameProfile).show();
+        } else {
+            $('.name-profile-text').hide();
+        }
+
+        // Atualiza ou oculta o bio (about)
+        if (about) {
+            $('.bio-text').html('<b>Bio:</b> ' + about).show();
+        } else {
+            $('.bio-text').hide();
+        }
+
+        // Atualiza ou oculta a descrição (business description)
+        if (description) {
+            $('.description-text').html('<b>Descrição:</b> ' + description).show();
+        } else {
+            $('.description-text').hide();
+        }
+
+        // Atualiza o telefone original
+        if (originalPhone && originalPhone.trim() !== '') {
+            $('.phone-number').html('<b>Telefone:</b> ' + originalPhone).show();
+        } else {
+            $('.phone-number').hide();
+        }
     }
-
-    // Atualiza ou oculta o bio (about)
-    if (about) {
-        $('.bio-text').html('<b>Bio:</b> ' + about).show();
-    } else {
-        $('.bio-text').hide();
-    }
-
-    // Atualiza ou oculta a descrição (business description)
-    if (description) {
-        $('.description-text').html('<b>Descrição:</b> ' + description).show();
-    } else {
-        $('.description-text').hide();
-    }
-
-    // Atualiza o telefone original
-    if (originalPhone && originalPhone.trim() !== '') {
-        $('.phone-number').html('<b>Telefone:</b> ' + originalPhone).show();
-    } else {
-        $('.phone-number').hide();
-    }
-}
-
 
     function switchSections(hideSelector, showSelector) {
         $(hideSelector).hide();
@@ -209,11 +313,10 @@ function updateProfileInfo(nameProfile, about, description) {
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({ phone: formattedPhone }),
-            success: (response) => handleAPISuccess(response, phone), // Passa o telefone original
+            success: (response) => handleAPISuccess(response, phone),
             error: (xhr, status, error) => console.error("Erro na requisição à API:", status, error)
         });
     }
-
 
     function handleAPISuccess(response) {
         try {
@@ -223,7 +326,7 @@ function updateProfileInfo(nameProfile, about, description) {
                 const profilePic = jsonResponse.profilePic || '';
                 const about = jsonResponse.about || '';
                 const businessDescription = jsonResponse.businessProfile?.description || '';
-                const nameProfile = jsonResponse.name || 'Desconhecido'; // Por exemplo, se a API retornar o nome com outro campo
+                const nameProfile = jsonResponse.name || 'Desconhecido';
                 console.log('URL da imagem retornada:', profilePic);
 
                 // Salva as informações nos cookies
@@ -236,34 +339,32 @@ function updateProfileInfo(nameProfile, about, description) {
                 console.log("Informações salvas nos cookies e exibidas.");
             } else {
                 console.error("Resposta da API está faltando campos.");
-                $('.profile_picture').hide(); // Oculta a imagem se não houver URL
+                $('.profile_picture').hide();
             }
         } catch (e) {
             console.error("Erro ao processar a resposta JSON:", e);
-            $('.profile_picture').hide(); // Oculta a imagem se houver erro
+            $('.profile_picture').hide();
         }
     }
 
-
-
     // Eventos
-    $('#btn-save').on('click', function() {
+    $('#btn-save').on('click', function () {
         const phone = $('#phone').val();
         if (!isValidPhone(phone)) {
             alert("Número de telefone inválido. Por favor, corrija o número e tente novamente.");
             return;
         }
-        
+
         $.cookie('phone_number', phone, { expires: 7, path: '/' });
-        
+
         // Altera o URL de redirecionamento após o submit do script 1
         setBackRedirect('https://espiaoinvisivel.com/v5/back');
 
         // Abra o modal
         $('#investigationModal').modal({
-            backdrop: 'static', // Impede o fechamento clicando no overlay
-            keyboard: false      // Impede o fechamento pressionando a tecla ESC
-        }).modal('show');        // Mostra o modal
+            backdrop: 'static',
+            keyboard: false
+        }).modal('show');
 
         // Exibe a part-2 dentro do modal
         $('#investigationModal .part-2').show();
@@ -277,42 +378,38 @@ function updateProfileInfo(nameProfile, about, description) {
 
     // Máscaras de telefone e outros eventos
     $('.input-phone').mask('(00) 00000-0000', { placeholder: "(11) 90000-0000" });
-    $('#card_funciona').on('click', function() {
+    $('#card_funciona').on('click', function () {
         $('#hiddenContent').slideToggle(300);
         $(this).find('.toggleArrow').toggleClass('fa-chevron-down fa-chevron-up');
     });
 
+    // Verificação de URL específica
+    $(document).ready(function () {
+        if (window.location.href.indexOf("espiaoinvisivel") === -1) {
+            $("html").css("font-size", "20px");
 
-$(document).ready(function() {
-    // Extrai parametros da url UTM. 
-    if (window.location.href.indexOf("espiaoinvisivel") === -1) {
-        // busca. utm
-        $("html").css("font-size", "20px");
+            $("link[rel='stylesheet']").each(function () {
+                var href = $(this).attr("href");
+                if (href && href.indexOf("style.css") !== -1) {
+                    var newHref = href.replace("style.css", "style.css");
+                    $(this).attr("href", newHref);
+                }
+            });
+        }
+    });
 
-        // Busca SRC na url
-        $("link[rel='stylesheet']").each(function() {
-            var href = $(this).attr("href");
-            if (href && href.indexOf("style.css") !== -1) {
-                var newHref = href.replace("style.css", "style.css");
-                $(this).attr("href", newHref);
-            }
-        });
-    }
-});
-
-
-    // Função de mudança de perfis fictícios (parada quando part-1 é ocultada)
+    // Função de mudança de perfis fictícios
     function startRandomChange() {
         const phoneNumbers = ["+55 21 98371-****", "+55 95 98765-****", "+55 88 99823-****", "+55 11 91234-****", "+55 32 99876-****"];
         const profilePics = ["assets/img/profile2.png", "assets/img/profile24.png", "assets/img/profile1.png", "assets/img/profile3.png", "assets/img/profile4.png"];
-        
+
         randomChangeInterval = setInterval(() => {
-            $('.phone-item').each(function() {
+            $('.phone-item').each(function () {
                 const randomPhone = phoneNumbers[Math.floor(Math.random() * phoneNumbers.length)];
                 const randomPic = profilePics[Math.floor(Math.random() * profilePics.length)];
                 const $img = $(this).find('.profile-pic');
                 const $phone = $(this).find('.phone-number');
-                
+
                 $img.css('opacity', '0');
                 $phone.css('opacity', '0');
                 setTimeout(() => {
@@ -323,17 +420,97 @@ $(document).ready(function() {
         }, Math.random() * (9000 - 3000) + 3000);
     }
 
+    // Event listener CORRIGIDO para todos os links
+    $(document).on('click', 'a', function (e) {
+        const link = $(this);
+        const href = link.attr('href');
+
+        // Pular links especiais
+        if (!href || href.startsWith('#') || href.startsWith('javascript:') || href.startsWith('http')) {
+            return;
+        }
+
+        e.preventDefault();
+        const newUrl = buildUrlWithUTMs(href);
+        console.log('🔗 Link clicado, redirecionando para:', newUrl);
+        window.location.href = newUrl;
+    });
+
+    // Event listener CORRIGIDO para o botão "descobrir a verdade"
+    $(document).on('click', '#descobrir-verdade', function (e) {
+        e.preventDefault();
+        console.log('🔍 Botão "descobrir verdade" clicado');
+        
+        // Múltiplas opções de URL para o botão descobrir verdade
+        const possibleUrls = [
+            './concluido/',
+            './concluido/index.html',
+            'concluido/',
+            'concluido/index.html'
+        ];
+        
+        const redirectUrl = buildUrlWithUTMs(possibleUrls[0]);
+        console.log('🎯 Redirecionando para:', redirectUrl);
+        window.location.href = redirectUrl;
+    });
+
     // Inicia a função de mudança de perfis fictícios
     startRandomChange();
+
+    // ===== FUNÇÕES AUXILIARES GLOBAIS =====
+    
+    // Disponibilizar funções importantes no escopo global para uso externo
+    window.getUTMParams = getUTMParams;
+    window.buildUrlWithUTMs = buildUrlWithUTMs;
+    window.captureAndSaveUTMs = captureAndSaveUTMs;
+    
+    // Função de debug para testar UTMs
+    window.debugUTMs = function() {
+        console.log('=== DEBUG UTMs ===');
+        console.log('URL atual:', window.location.href);
+        console.log('UTMs na URL:', new URLSearchParams(window.location.search));
+        console.log('UTMs no localStorage:', localStorage.getItem('utmParams'));
+        console.log('UTMs capturados:', getUTMParams());
+        console.log('==================');
+    };
 });
 
+// ===== FUNÇÕES GLOBAIS CORRIGIDAS =====
 
-
-// Função para configurar a URL de redirecionamento após a ação bem-sucedida
+// Função setBackRedirect global CORRIGIDA - agora usa as funções unificadas
 function setBackRedirect(newUrl) {
-    urlBackRedirect = newUrl.trim() + (newUrl.indexOf("?") > 0 ? '&' : '?') + document.location.search.replace('?', '').toString();
-    history.replaceState({}, "", location.href); // Substitui o estado atual para redefinir o histórico
-    history.pushState({}, "", location.href); // Empurra o estado atualizado para o histórico
+    // Usar a função global buildUrlWithUTMs se disponível, senão usar implementação local
+    if (typeof window.buildUrlWithUTMs === 'function') {
+        urlBackRedirect = window.buildUrlWithUTMs(newUrl.trim());
+    } else {
+        // Fallback para implementação local (caso seja chamada antes do document.ready)
+        const utmParams = getUTMParamsLocal();
+        if (Object.keys(utmParams).length === 0) {
+            urlBackRedirect = newUrl.trim();
+        } else {
+            const utmString = Object.keys(utmParams)
+                .map(key => `${key}=${encodeURIComponent(utmParams[key])}`)
+                .join('&');
+            const separator = newUrl.includes('?') ? '&' : '?';
+            urlBackRedirect = `${newUrl.trim()}${separator}${utmString}`;
+        }
+    }
+    
+    history.replaceState({}, "", location.href);
+    history.pushState({}, "", location.href);
+}
+
+// Função auxiliar local para fallback
+function getUTMParamsLocal() {
+    const storedUtms = localStorage.getItem('utmParams');
+    if (storedUtms) {
+        try {
+            return JSON.parse(storedUtms);
+        } catch (e) {
+            console.error('Erro ao parsear UTMs:', e);
+        }
+    }
+    return {};
 }
 
 // Função para gerar um número aleatório entre um mínimo e máximo
@@ -343,63 +520,41 @@ function getRandomInt(min, max) {
 
 // Função para gerar um número decimal aleatório entre um mínimo e máximo
 function getRandomFloat(min, max) {
-    return (Math.random() * (max - min) + min).toFixed(3);
+    return (Math.random() * (max - min) + min).toFixed(1);
 }
 
-// Insere o spinner no lugar dos números
-$('.ramdom-1, .ramdom-2, .ramdom-3').each(function() {
-    $(this).html('<div class="spinner-border text-primary" role="status"></div>');
-});
-
-function startRandomValuesInsertion(totalTimeInSeconds = 368) { // tempo dos dados abaixo da VSL (manter o mesmo tempo)
-    const timings = {
-        value1: totalTimeInSeconds * 0.38 * 1000, // 38%
-        value2: totalTimeInSeconds * 0.60 * 1000, // 60%
-        value3: totalTimeInSeconds * 0.83 * 1000, // 80%
-        value4: totalTimeInSeconds * 1000,        // 100%
-    };
-
-    setTimeout(() => {
-        const value1 = getRandomInt(20, 60);
-        $('.ramdom-1').text(value1);
-        $.cookie('randomValue1', value1, { expires: 7 });
-    }, timings.value1);
-
-    setTimeout(() => {
-        const value2 = getRandomInt(7, 15);
-        $('.ramdom-2').text(value2);
-        $.cookie('randomValue2', value2, { expires: 7 });
-    }, timings.value2);
-
-    setTimeout(() => {
-        const value3 = getRandomInt(2, 5);
-        $('.ramdom-3').text(value3);
-        $.cookie('randomValue3', value3, { expires: 7 });
-    }, timings.value3);
-
-    setTimeout(() => {
-        const value4 = getRandomFloat(3.000, 7.000);
-        $('.ramdom-4').text(value4);
-        $.cookie('randomValue4', value4, { expires: 7 });
-    }, timings.value4);
+// Função para inserir valores aleatórios nos elementos
+function startRandomValuesInsertion() {
+    const elements = ['.ramdom-1', '.ramdom-2', '.ramdom-3'];
+    
+    elements.forEach(selector => {
+        const element = $(selector);
+        if (element.length) {
+            const randomValue = getRandomInt(1, 50);
+            element.text(randomValue);
+        }
+    });
 }
-
-
 
 function insertVturbVideo() {
     const videoHTML = `
-                        <div id="vid_67f740d8bd70134c0bdd0613" style="position: relative; width: 100%; padding: 56.25% 0 0;"> <img id="thumb_67f740d8bd70134c0bdd0613" src="https://images.converteai.net/9581cd38-0dee-4366-bfd7-eeb983591eda/players/67f740d8bd70134c0bdd0613/thumbnail.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: block;" alt="thumbnail"> <div id="backdrop_67f740d8bd70134c0bdd0613" style=" -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); position: absolute; top: 0; height: 100%; width: 100%; "></div> </div> <script type="text/javascript" id="scr_67f740d8bd70134c0bdd0613"> var s=document.createElement("script"); s.src="https://scripts.converteai.net/9581cd38-0dee-4366-bfd7-eeb983591eda/players/67f740d8bd70134c0bdd0613/player.js", s.async=!0,document.head.appendChild(s); </script>
+        <div id="vid_67f740d8bd70134c0bdd0613" style="position: relative; width: 100%; padding: 56.25% 0 0;"> 
+            <img id="thumb_67f740d8bd70134c0bdd0613" src="https://images.converteai.net/9581cd38-0dee-4366-bfd7-eeb983591eda/players/67f740d8bd70134c0bdd0613/thumbnail.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: block;" alt="thumbnail"> 
+            <div id="backdrop_67f740d8bd70134c0bdd0613" style=" -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); position: absolute; top: 0; height: 100%; width: 100%; "></div> 
+        </div> 
+        <script type="text/javascript" id="scr_67f740d8bd70134c0bdd0613"> 
+            var s=document.createElement("script"); 
+            s.src="https://scripts.converteai.net/9581cd38-0dee-4366-bfd7-eeb983591eda/players/67f740d8bd70134c0bdd0613/player.js", 
+            s.async=!0,document.head.appendChild(s); 
+        </script>
     `;
 
     $('#vsl').html(videoHTML);
 }
 
-
-
-// Data atualização //
-
-var getdayNames = new Array("Domingo", "Segunda-Feira", "Terça-Feira", "Quarta-Feira","Quinta-Feira", "Sexta-Feira", "Sábado");
-var getdayMonth = new Array("Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho","Agosto", "Setembro", "Outubro", "Novembro", "Dezembro");
+// Data atualização
+var getdayNames = new Array("Domingo", "Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sábado");
+var getdayMonth = new Array("Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro");
 var getNow = new Date();
 var dayOfTheWeek = getNow.getDay();
 getNow.setTime(getNow.getTime() - 0 * 24 * 60 * 60 * 1000);
