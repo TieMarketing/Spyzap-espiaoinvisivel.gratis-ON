@@ -646,7 +646,7 @@ function startRandomValuesInsertion(totalTimeInSeconds = 368) {
     const timings = {
         value1: totalTimeInSeconds * 0.01 * 1000, // 01% do tempo total
         value2: totalTimeInSeconds * 0.26 * 1000, // 26% do tempo total
-        value3: totalTimeInSeconds * 0.48 * 1000, // 83% do tempo total
+        value3: totalTimeInSeconds * 0.48 * 1000, // 48% do tempo total
     };
 
     // Adiciona spinners imediatamente para todos os elementos
