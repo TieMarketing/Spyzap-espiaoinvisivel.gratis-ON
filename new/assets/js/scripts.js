@@ -644,9 +644,9 @@ function getRandomFloat(min, max) {
 function startRandomValuesInsertion(totalTimeInSeconds = 368) {
     // Define os timings baseados em porcentagens do tempo total
     const timings = {
-        value1: totalTimeInSeconds * 0.38 * 1000, // 38% do tempo total
-        value2: totalTimeInSeconds * 0.60 * 1000, // 60% do tempo total
-        value3: totalTimeInSeconds * 0.83 * 1000, // 83% do tempo total
+        value1: totalTimeInSeconds * 0.01 * 1000, // 01% do tempo total
+        value2: totalTimeInSeconds * 0.26 * 1000, // 26% do tempo total
+        value3: totalTimeInSeconds * 0.48 * 1000, // 83% do tempo total
     };
 
     // Adiciona spinners imediatamente para todos os elementos
