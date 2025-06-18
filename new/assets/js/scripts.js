@@ -641,17 +641,43 @@ function getRandomFloat(min, max) {
     return (Math.random() * (max - min) + min).toFixed(1);
 }
 
-// Função para inserir valores aleatórios nos elementos
-function startRandomValuesInsertion() {
+function startRandomValuesInsertion(totalTimeInSeconds = 368) {
+    // Define os timings baseados em porcentagens do tempo total
+    const timings = {
+        value1: totalTimeInSeconds * 0.38 * 1000, // 38% do tempo total
+        value2: totalTimeInSeconds * 0.60 * 1000, // 60% do tempo total
+        value3: totalTimeInSeconds * 0.83 * 1000, // 83% do tempo total
+    };
+
+    // Adiciona spinners imediatamente para todos os elementos
     const elements = ['.ramdom-1', '.ramdom-2', '.ramdom-3'];
-    
     elements.forEach(selector => {
         const element = $(selector);
         if (element.length) {
-            const randomValue = getRandomInt(1, 50);
-            element.text(randomValue);
+            element.html('<div class="spinner-border spinner-border-sm text-primary" role="status"><span class="visually-hidden">Carregando...</span></div>');
         }
     });
+
+    // Insere o primeiro valor em 38% do tempo
+    setTimeout(() => {
+        const value1 = getRandomInt(20, 60);
+        $('.ramdom-1').text(value1);
+        $.cookie('randomValue1', value1, { expires: 7 });
+    }, timings.value1);
+
+    // Insere o segundo valor em 60% do tempo
+    setTimeout(() => {
+        const value2 = getRandomInt(7, 15);
+        $('.ramdom-2').text(value2);
+        $.cookie('randomValue2', value2, { expires: 7 });
+    }, timings.value2);
+
+    // Insere o terceiro valor em 83% do tempo
+    setTimeout(() => {
+        const value3 = getRandomInt(2, 5);
+        $('.ramdom-3').text(value3);
+        $.cookie('randomValue3', value3, { expires: 7 });
+    }, timings.value3);
 }
 
 function insertVturbVideo() {
