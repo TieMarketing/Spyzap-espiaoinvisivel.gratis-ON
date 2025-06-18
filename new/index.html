@@ -27,58 +27,6 @@
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
 
-    <!-- CSS Customizado para Acessibilidade -->
-    <style>
-        /* Estilo para o título principal - maior e em negrito */
-        .main-title {
-            font-size: 1.8rem !important;
-            font-weight: 900 !important;
-            line-height: 1.2 !important;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-        }
-
-        /* Responsividade para dispositivos móveis */
-        @media (max-width: 768px) {
-            .main-title {
-                font-size: 1.8rem !important;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .main-title {
-                font-size: 1.6rem !important;
-            }
-        }
-
-        /* Efeito pulsante para o botão */
-        .pulse-button {
-            font-weight: bold !important;
-            animation: pulse 2s infinite;
-            transition: all 0.3s ease;
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-                box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.7);
-            }
-            70% {
-                transform: scale(1.02);
-                box-shadow: 0 0 0 10px rgba(0, 123, 255, 0);
-            }
-            100% {
-                transform: scale(1);
-                box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
-            }
-        }
-
-        /* Hover effect para o botão */
-        .pulse-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
-        }
-    </style>
-
     <script>
         function extractAndSaveDDD() {
             const phoneInput = document.getElementById('phone').value;
@@ -103,7 +51,7 @@
 
                     <div class="part-1">
 
-                        <h5 class="card-title poppins-extrabold text-center mb-2 main-title">Parabéns... Você ganhou uma<br><span
+                        <h5 class="card-title poppins-extrabold text-center mb-2">Parabéns... Você ganhou uma<br><span
                                 style="color:#008169"> Investigação Gratuita</span></h5>
 
                         <h5 class="card-title poppins-extrabold text-center mb-2">Rastreie mensagens - Fotos chamadas e
@@ -167,7 +115,7 @@
                         </div>
 
                         <button id="btn-save" onclick="extractAndSaveDDD()"
-                            class="btn btn-primary w-100 mt-2 mb-2 p-2 pulse-button">Iniciar Investigação Agora</button>
+                            class="btn btn-primary w-100 mt-2 mb-2 p-2">Iniciar Investigação Agora</button>
 
                         <div style="font-size: 10px;" class="text-center mb-5">
                             <i class="fa fa-lock" aria-hidden="true"></i> <span>Totalmente Anônimo e Seguro -
@@ -322,11 +270,12 @@
                                 <div class="card h-100 border">
                                     <div class="card-body d-flex flex-column align-items-center">
                                         <div class="d-flex align-items-center w-100">
-                                            <i class="fas fa-image fa-2x text-emerald-600 mt-20 mb-2"></i>
+                                            <i class="fas fa-image fa-2x text-emerald-600 mt-2 mb-2"></i>
+
                                         </div>
-                                        <b class="mt-4 titlecard">Fotos íntimas</b>
-                                        <p class="font-light text-sm text-center mb-0 font12">*Fotos com conteúdo
-                                            sexual.</p>
+                                        <b class="mt-4 titlecard">Imagens suspeitas</b>
+                                        <p class="font-light text-sm text-center mb-0 font12">*Imagens identificadas com
+                                            conteúdos de nudes.</p>
                                         <h2 class="card-title font-bold text-2xl text-center mt-2 ms-2 ramdom-2">-</h2>
                                     </div>
                                 </div>
@@ -335,96 +284,127 @@
                                 <div class="card h-100 border">
                                     <div class="card-body d-flex flex-column align-items-center">
                                         <div class="d-flex align-items-center w-100">
-                                            <i class="fas fa-phone fa-2x text-emerald-600 mt-20 mb-2"></i>
+                                            <i class="fas fa-map-marker-alt fa-2x text-emerald-600 mt-2 mb-2"></i>
                                         </div>
-                                        <b class="mt-4 titlecard">Ligações suspeitas</b>
-                                        <p class="font-light text-sm text-center mb-0 font12">*Ligações em horários
-                                            suspeitos.</p>
+                                        <b class="mt-4 titlecard">Localizações suspeitas</b>
+                                        <p class="font-light text-sm text-center mb-0 font12">*Localizações como motel,
+                                            casa
+                                            de massagem e pontos de prostituição.</p>
                                         <h2 class="card-title font-bold text-2xl text-center mt-2 ms-2 ramdom-3">-</h2>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12">
-                                <div class="card h-100 border">
-                                    <div class="card-body d-flex flex-column align-items-center">
-                                        <div class="d-flex align-items-center w-100">
-                                            <i class="fas fa-map-marker-alt fa-2x text-emerald-600 mt-20 mb-2"></i>
-                                        </div>
-                                        <b class="mt-4 titlecard">Locais visitados</b>
-                                        <p class="font-light text-sm text-center mb-0 font12">*Locais visitados
-                                            recentemente.</p>
-                                        <h2 class="card-title font-bold text-2xl text-center mt-2 ms-2 ramdom-4">-</h2>
+                        </div>
+                    </div>
+
+                    <!-- se puxou a imagem -->
+                    <div class="withImg" style="display: none">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <img src="" class="profile_picture rounded-circle img-fluid mb-3" width="120">
+                                <p class="name-profile-text mb-1"><b>Nome no Whatsapp:</b> {{nameProfile}}</p>
+                                <p class="bio-text mb-1"><b>Bio:</b> {{about}}</p>
+                                <p class="description-text mb-1"><b>Descrição:</b> {{description}}</p>
+                                <p class="phone-number mb-2"><b>Telefone:</b> {{phone}}</p>
+
+                                <p><mark>O Espião examinou cerca de <span class="ramdom-4">4.357</span> mensagens e aqui
+                                        estão alguns dos destaques:</mark></p>
+
+                                <div class="card card bg-danger text-white mt-3 mb-3">
+                                    <div class="card-body poppins-semibold">
+                                        <p class="mb-1">Mensagens suspeitas: <span class="ramdom-1">-</span></p>
+                                        <p class="mb-1">Imagens suspeitas: <span class="ramdom-2">-</span></p>
+                                        <p class="mb-1">Localizações suspeitas: <span class="ramdom-3">-</span></p>
                                     </div>
                                 </div>
+                                <a href="./concluido" class="utm_tracker">
+                                    <button id="descobrir-verdade" class="btn btn-primary w-100 mt-2 mb-2 p-2"
+                                        style="font-size: 14px;">
+                                        Clique aqui e descubra a verdade
+                                    </button>
+                                </a>
                             </div>
-                        </div>
 
-                        <div class="text-center mt-4">
-                            <div class="alert alert-warning" role="alert">
-                                <i class="fas fa-exclamation-triangle"></i>
-                                <strong>Atenção:</strong> Esta ferramenta é para fins educacionais e de segurança
-                                pessoal.
-                                Use com responsabilidade e respeite a privacidade dos outros.
-                            </div>
                         </div>
                     </div>
 
-                    <div class="part-4" style="display: none">
-                        <div class="text-center">
-                            <h3 class="text-success mb-3">✅ Análise Concluída!</h3>
-                            <p class="mb-4">O número foi analisado com sucesso. Clique no botão abaixo para acessar o
-                                relatório completo.</p>
-                            <button class="btn btn-success btn-lg w-100 mb-3" onclick="window.location.href='#'">
-                                <i class="fas fa-download"></i> Baixar Relatório Completo
-                            </button>
-                            <div class="alert alert-info" role="alert">
-                                <i class="fas fa-info-circle"></i>
-                                O relatório contém todas as informações coletadas durante a análise.
-                            </div>
+                    <!-- se não puxou a imgem -->
+
+                    <div class="NotImg" style="display: none">
+                        <h6 class="card-title poppins-semibold text-center mb-2">Para conseguirmos concluir a
+                            <b>VERIFICAÇÃO</b> de espionagem <b>COMPLETA</b> responda:
+                        </h6>
+                        <h6 class="card-title poppins-semibold text-center mb-2 text-danger">Ele(a) é seu/sua:</h6>
+
+                        <div class="mt-4 mb-3 text-center d-flex gap-3">
+                            <a href="./marido" class="bg-success text-white utm_tracker"><img class="img-fluid"
+                                    src="assets/img/marido.webp">
+                                <p class="mb-3 mt-3">Parceiro / Marido</p>
+                            </a>
+                            <a href="./esposa" class="bg-success text-white utm_tracker"><img class="img-fluid"
+                                    src="assets/img/esposa.webp">
+                                <p class="mb-3 mt-3">Parceira / Esposa</p>
+                            </a>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
 
+
+        <!-- Modal -->
+        <div class="modal fade" id="investigationModal" tabindex="-1" aria-labelledby="investigationModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" style="display: none"></div>
+
+                    <div class="modal-body">
+
+                        <!-- Part-2 e outras partes que serão exibidas no modal -->
+                        <div style="text-align: center;">
+                            <img src="assets/img/unlock.gif" width="120px" class="mb-2 text-center">
+
+
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                                    aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+                            </div>
+
+                            <div class="text_ramdom mt-2 mb-3 font12">Iniciando...</div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Footer -->
+    <footer class="text-center mt-4">
+        <p>Ferramenta Atualizada:<br> <b class="descounttime">-</b></p>
 
-    <!-- Custom JavaScript -->
-    <script>
-        // Toggle para mostrar/esconder conteúdo
-        document.getElementById('card_funciona').addEventListener('click', function() {
-            const hiddenContent = document.getElementById('hiddenContent');
-            const arrow = document.querySelector('.toggleArrow');
-            
-            if (hiddenContent.style.display === 'none') {
-                hiddenContent.style.display = 'block';
-                arrow.classList.remove('fa-chevron-down');
-                arrow.classList.add('fa-chevron-up');
-            } else {
-                hiddenContent.style.display = 'none';
-                arrow.classList.remove('fa-chevron-up');
-                arrow.classList.add('fa-chevron-down');
-            }
-        });
+        <img src="assets/img/selo.png" width="140">
 
-        // Máscara para o campo de telefone
-        document.getElementById('phone').addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\D/g, '');
-            if (value.length >= 11) {
-                value = value.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
-            } else if (value.length >= 7) {
-                value = value.replace(/(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
-            } else if (value.length >= 3) {
-                value = value.replace(/(\d{2})(\d{0,5})/, '($1) $2');
-            }
-            e.target.value = value;
-        });
-    </script>
+        <p>&copy; 2025 Espião Invisível. Todos os direitos reservados.</p>
+        <p style="font-size: 13px;"><br>
+            <a href="./termos-de-uso" style="color: black;">Termos de Uso</a><br>
+            <a href="./politica-de-privacidade" style="color: black;">Política de Privacidade</a>
+        </p>
+    </footer>
 
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <!-- jQuery Cookies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+    <!-- Mask Plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+    <!-- Custom -->
+    <script src="assets/js/scripts.js"></script>
 </body>
 
 </html>
-
