@@ -43,39 +43,503 @@
 
         gtag('config', 'AW-11289495469');
     </script>
-
-
     <style>
+        /* ===== SISTEMA DE TEMAS ===== */
+        :root {
+            /* Tema Claro (padrão) */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f0f0f0;
+            --bg-tertiary: #f8f9fa;
+            --bg-message-send: #ffffff;
+            --bg-message-receive: #ffffff;
+            --bg-chat-item: #ffffff;
+            --bg-nav: #f1f1f1ff;
+            --bg-modal: #ffffff;
+            --bg-modal-overlay: rgba(0, 0, 0, 0.5);
+            --bg-conversation: #f8f9fa;
+
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --text-muted: #9ca3af;
+            --text-inverse: #ffffff;
+
+            --border-primary: #e5e7eb;
+            --border-secondary: #d1d5db;
+
+            --accent-color: #00a884;
+            --accent-hover: #008f72;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+
+            --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-medium: 0 4px 14px rgba(0, 0, 0, 0.1);
+            --shadow-heavy: 0 8px 32px rgba(0, 0, 0, 0.15);
+        }
+
+        [data-theme="dark"] {
+            /* Tema Escuro */
+            --bg-primary: #111b21;
+            --bg-secondary: #2a3942;
+            --bg-tertiary: #1f2937;
+            --bg-message-send: #005c4bff;
+            --bg-message-receive: #353535ff;
+            --bg-chat-item: #2a3942;
+            --bg-nav: #2a3942;
+            --bg-modal: #2a3942;
+            --bg-modal-overlay: rgba(0, 0, 0, 0.7);
+            --bg-conversation: #1f2937;
+
+            --text-primary: #e9edef;
+            --text-secondary: #8696a0;
+            --text-muted: #667781;
+            --text-inverse: #1f2937;
+
+            --border-primary: #3b4a54;
+            --border-secondary: #2a3942;
+
+            --accent-color: #00a884;
+            --accent-hover: #008f72;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+
+            --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.3);
+            --shadow-medium: 0 4px 14px rgba(0, 0, 0, 0.3);
+            --shadow-heavy: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Aplicação das variáveis CSS */
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
         .ca-sidebar__header {
-            background-color: #f0f0f0;
-            /* Cor sólida branca gelo */
+            background-color: var(--bg-secondary);
+            transition: background-color 0.3s ease;
+        }
+
+        /* Botão de alternância de tema */
+        .theme-toggle {
+            position: relative;
+            background: none;
+            border: none;
+            padding: 8px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-secondary);
+            font-size: 20px;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+            transform: scale(1.1);
+        }
+
+        .theme-toggle i {
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:hover i {
+            transform: rotate(180deg);
         }
 
         /* Icons others social links */
 
         ul#mfbMenu2 {
-            bottom: 4px;
+            bottom: 100px;
         }
 
         ul#mfbMenu3 {
-            bottom: 66px;
+            bottom: 166px;
         }
 
         ul#mfbMenu4 {
-            bottom: 133px;
+            bottom: 233px;
         }
 
         ul#mfbMenu5 {
-            bottom: 193px;
+            bottom: 293px;
         }
 
         ul#mfbMenu6 {
-            bottom: 251px;
+            bottom: 351px;
         }
 
         button.btn-close {
             border: 0;
             color: red;
+        }
+
+        .toast-aviso {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            background-color: var(--success-color);
+            color: var(--text-inverse);
+            padding: 16px 20px;
+            border-radius: 8px;
+            box-shadow: var(--shadow-medium);
+            font-weight: bold;
+            font-size: 14px;
+            max-width: 320px;
+            z-index: 99999;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .toast-aviso.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #caMainTab {
+            position: fixed;
+            bottom: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 101%;
+            background-color: var(--bg-nav);
+            border-top: 1px solid var(--border-primary);
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0 10px 0;
+            list-style: none;
+            z-index: 1000;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .nav-item {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-secondary);
+            padding: 8px 12px;
+            transition: all 0.2s ease;
+            border-radius: 8px;
+            min-width: 50px;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            background-color: var(--bg-tertiary);
+            transform: translateY(-1px);
+            color: var(--text-primary);
+        }
+
+        .nav-link.active {
+            color: var(--accent-color);
+        }
+
+        .nav-link i {
+            font-size: 22px;
+            margin-bottom: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link span {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        .nav-link.active i {
+            transform: scale(1.1);
+        }
+
+        /* Badge de notificação */
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            right: 8px;
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .nav-link[data-badge="true"]::after {
+            opacity: 1;
+        }
+
+        /* Animação de mudança de aba */
+        .tab-content {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .nav-link span {
+                font-size: 10px;
+            }
+
+            .nav-link i {
+                font-size: 20px;
+            }
+        }
+
+        /* Estilo adicional para simular conteúdo */
+        .chat-item,
+        .call-item,
+        .contact-item {
+            background-color: var(--bg-chat-item);
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-color);
+            box-shadow: var(--shadow-light);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .chat-item:hover,
+        .call-item:hover,
+        .contact-item:hover {
+            box-shadow: var(--shadow-medium);
+        }
+
+        .chat-item h3,
+        .call-item h3,
+        .contact-item h3 {
+            color: var(--text-primary);
+            font-size: 16px;
+            margin-bottom: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .chat-item p,
+        .call-item p,
+        .contact-item p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        /* Modal de Status */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-modal-overlay);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            animation: fadeInOverlay 0.3s ease-in-out;
+            transition: background-color 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: var(--bg-modal);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 20px;
+            max-width: 320px;
+            width: 90%;
+            text-align: center;
+            box-shadow: var(--shadow-heavy);
+            transform: scale(0.8);
+            animation: modalSlideIn 0.3s ease-out forwards;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .modal-icon {
+            font-size: 48px;
+            color: var(--accent-color);
+            margin-bottom: 16px;
+        }
+
+        .modal-title {
+            color: var(--text-primary);
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            transition: color 0.3s ease;
+        }
+
+        .modal-message {
+            color: var(--text-secondary);
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 24px;
+            transition: color 0.3s ease;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .modal-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .modal-btn-primary {
+            background-color: var(--accent-color);
+            color: var(--text-inverse);
+        }
+
+        .modal-btn-primary:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+
+        .modal-btn-secondary {
+            background-color: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-primary);
+        }
+
+        .modal-btn-secondary:hover {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        /* Dropdown menu styling */
+        .dropdown-menu {
+            background-color: var(--bg-modal);
+            border: 1px solid var(--border-primary);
+            box-shadow: var(--shadow-medium);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .dropdown-item {
+            color: var(--text-primary);
+            transition: color 0.3s ease, background-color 0.3s ease;
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        /* Form controls */
+        .form-control {
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+        }
+
+        .form-control:focus {
+            background-color: var(--bg-primary);
+            border-color: var(--accent-color);
+            color: var(--text-primary);
+            box-shadow: 0 0 0 0.2rem rgba(0, 168, 132, 0.25);
+        }
+
+        .form-control::placeholder {
+            color: var(--text-muted);
+        }
+
+        .container,
+        .conversation-panel__head,
+        .ps--active-y {
+            background-color: var(--bg-conversation);
+            border: none;
+        }
+
+        .ca-send__msg {
+            background-color: var(--bg-message-send);
+            color: var(--text-primary);
+            padding: 10px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+        }
+
+        .ca-received__msg {
+            background-color: var(--bg-message-receive);
+            color: var(--text-primary);
+            padding: 10px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+        }
+
+        .conversation-panel__footer {
+            background-color: var(--bg-nav);
+        }
+
+        @keyframes fadeInOverlay {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: scale(0.8) translateY(-20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Ícone de Status com animação */
+        #caStatusTab i {
+            animation: statusPulse 2s infinite;
+        }
+
+        @keyframes statusPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+        }
+
+        /* Animação de transição de tema */
+        * {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
     </style>
 
@@ -98,32 +562,6 @@
             return "";
         }
     </script>
-
-    <style>
-        .toast-aviso {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #28a745;
-            color: #fff;
-            padding: 16px 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
-            font-weight: bold;
-            font-size: 14px;
-            max-width: 320px;
-            z-index: 99999;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-
-        .toast-aviso.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    </style>
-
 
 </head>
 
@@ -159,6 +597,10 @@
                             <div class="iconbox btn-hovered-light">
                                 <i class="iconbox__icon mdi mdi-bell-outline"></i>
                             </div>
+
+                            <button class="theme-toggle" onclick="toggleTheme()" title="Alternar tema">
+                                <i class="mdi mdi-brightness-6" id="theme-icon"></i>
+                            </button>
 
                             <div class="iconbox-dropdown dropdown">
                                 <div class="iconbox btn-hovered-light" role="button" id="dropdownMenuLink"
@@ -227,10 +669,10 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="caCallsTab" data-toggle="pill" href="#caCalls"
-                                            role="tab" aria-controls="caCalls" aria-selected="false">
-                                            <span class="mdi mdi-phone"></span>
-                                            <span>Ligações</span>
+                                        <a class="nav-link" id="caStatusTab" href="#" onclick="openImageModal(event)">
+                                            <i><img src="./images/status.png" alt=""
+                                                    style="width: 24px; height: 24px; object-fit: contain;"></i>
+                                            <span>Status</span>
                                         </a>
                                     </li>
                                     <li class="nav-item">
@@ -238,6 +680,13 @@
                                             role="tab" aria-controls="caContacts" aria-selected="false">
                                             <span class="mdi mdi-account-box-outline"></span>
                                             <span>Contatos</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="caCallsTab" data-toggle="pill" href="#caCalls"
+                                            role="tab" aria-controls="caCalls" aria-selected="false">
+                                            <span class="mdi mdi-phone"></span>
+                                            <span>Ligações</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -7238,7 +7687,9 @@
                     </div>
                 </div>
             </div>
-
+            <div class="toast-aviso" id="toastAviso">
+                Tema alterado com sucesso!
+            </div>
         </div>
     </div>
 
@@ -7249,7 +7700,179 @@
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/app.js"></script>
 
+    <script>
+        function getCookie(cname) {
+            const name = cname + "=";
+            const decodedCookie = decodeURIComponent(document.cookie);
+            const cookieArray = decodedCookie.split(';');
 
+            for (let i = 0; i < cookieArray.length; i++) {
+                let cookie = cookieArray[i].trim();
+                if (cookie.indexOf(name) === 0) {
+                    return cookie.substring(name.length);
+                }
+            }
+            return "";
+        }
+
+        // ===== SISTEMA DE ALTERNÂNCIA DE TEMAS =====
+
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('theme-icon');
+            const currentTheme = body.getAttribute('data-theme');
+
+            if (currentTheme === 'dark') {
+                body.removeAttribute('data-theme');
+                themeIcon.className = 'mdi mdi-brightness-6';
+                localStorage.setItem('theme', 'light');
+                showToast('Tema claro ativado!');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                themeIcon.className = 'mdi mdi-weather-night';
+                localStorage.setItem('theme', 'dark');
+                showToast('Tema escuro ativado!');
+            }
+            window.location.reload();
+        }
+
+        function applyStoredTheme() {
+            const storedTheme = localStorage.getItem('theme');
+            const body = document.body;
+            const themeIcon = document.getElementById('theme-icon');
+
+            if (storedTheme === 'dark') {
+                body.setAttribute('data-theme', 'dark');
+                themeIcon.className = 'mdi mdi-weather-night';
+            } else {
+                body.removeAttribute('data-theme');
+                themeIcon.className = 'mdi mdi-brightness-6';
+            }
+        }
+
+        function detectSystemTheme() {
+            return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+
+        function applySystemTheme() {
+            const storedTheme = localStorage.getItem('theme');
+            if (!storedTheme) {
+                const systemTheme = detectSystemTheme();
+                if (systemTheme === 'dark') {
+                    document.body.setAttribute('data-theme', 'dark');
+                    document.getElementById('theme-icon').className = 'mdi mdi-weather-night';
+                }
+            }
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toastAviso');
+            if (!toast) return; // segurança para evitar erro se o elemento não existir
+            toast.textContent = message;
+            toast.classList.add('show');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // ===== OUTRAS FUNÇÕES EXISTENTES =====
+
+        function openImageModal(event) {
+            event.preventDefault();
+            document.getElementById('statusModal').classList.add('show');
+        }
+
+        function closeModal() {
+            document.getElementById('statusModal').classList.remove('show');
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            applyStoredTheme();
+            applySystemTheme();
+
+            const modal = document.getElementById('statusModal');
+            if (modal) {
+                modal.addEventListener('click', function (event) {
+                    if (event.target === this) {
+                        closeModal();
+                    }
+                });
+            }
+        });
+    </script>
+
+
+    <script>
+        // Função para abrir modal de Status (usando o modal existente do sistema)
+        function openImageModal(event) {
+            event.preventDefault();
+            const modal = document.getElementById('imageModal');
+
+            // Atualizar o parâmetro para "Status"
+            const parameterPlaceholder = document.getElementById('parameterPlaceholder');
+            if (parameterPlaceholder) {
+                parameterPlaceholder.textContent = 'Status';
+            }
+
+            // Mostrar o modal
+            modal.style.display = 'block';
+            modal.classList.add('show');
+
+            // Adicionar efeito de feedback visual no botão
+            const statusBtn = document.getElementById('caStatusTab');
+            statusBtn.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                statusBtn.style.transform = 'scale(1)';
+            }, 150);
+        }
+
+        // Função para fechar modal de pagamento
+        function closeImageModal() {
+            const modal = document.getElementById('imageModal');
+            modal.style.display = 'none';
+            modal.classList.remove('show');
+        }
+
+        // Configurar eventos do modal quando a página carregar
+        document.addEventListener('DOMContentLoaded', function () {
+            const imageModal = document.getElementById('imageModal');
+
+            if (imageModal) {
+                // Fechar modal clicando fora dele
+                imageModal.addEventListener('click', function (e) {
+                    if (e.target === this) {
+                        closeImageModal();
+                    }
+                });
+
+                // Configurar botão de fechar (X)
+                const closeButton = imageModal.querySelector('.btn-close');
+                if (closeButton) {
+                    closeButton.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        closeImageModal();
+                    });
+                }
+
+                // Também capturar qualquer botão com data-bs-dismiss
+                const dismissButtons = imageModal.querySelectorAll('[data-bs-dismiss="modal"]');
+                dismissButtons.forEach(button => {
+                    button.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        closeImageModal();
+                    });
+                });
+            }
+        });
+
+        // Fechar modal com tecla ESC
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                closeImageModal();
+            }
+        });
+    </script>
     <!-- Script modal icons -->
 
     <script>
@@ -7569,10 +8192,6 @@
             }, 15000); // some após 10 segundos
         });
     </script>
-
-
-
-
 </body>
 
 </html>
