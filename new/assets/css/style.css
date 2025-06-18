@@ -37,7 +37,7 @@ p {
   opacity: 0.9;
 }
 
-main {
+.main-content {
   margin: 0 16px;
 }
 
@@ -340,7 +340,6 @@ p.font-light.text-sm.text-center.mb-0 {
 }
 
 .card-title {
-  display: flex;
   align-items: center;
   margin-bottom: 20px;
   color: var(--dark-green);
