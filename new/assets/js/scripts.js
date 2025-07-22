@@ -682,15 +682,7 @@ function startRandomValuesInsertion(totalTimeInSeconds = 368) {
 
 function insertVturbVideo() {
     const videoHTML = `
-        <div id="vid_67f740d8bd70134c0bdd0613" style="position: relative; width: 100%; padding: 56.25% 0 0;"> 
-            <img id="thumb_67f740d8bd70134c0bdd0613" src="https://images.converteai.net/9581cd38-0dee-4366-bfd7-eeb983591eda/players/67f740d8bd70134c0bdd0613/thumbnail.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: block;" alt="thumbnail"> 
-            <div id="backdrop_67f740d8bd70134c0bdd0613" style=" -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); position: absolute; top: 0; height: 100%; width: 100%; "></div> 
-        </div> 
-        <script type="text/javascript" id="scr_67f740d8bd70134c0bdd0613"> 
-            var s=document.createElement("script"); 
-            s.src="https://scripts.converteai.net/9581cd38-0dee-4366-bfd7-eeb983591eda/players/67f740d8bd70134c0bdd0613/player.js", 
-            s.async=!0,document.head.appendChild(s); 
-        </script>
+        <vturb-smartplayer id="vid-687fcd74042c9ca2199b6fe3" style="display: block; margin: 0 auto; width: 100%; "></vturb-smartplayer> <script type="text/javascript"> var s=document.createElement("script"); s.src="https://scripts.converteai.net/9581cd38-0dee-4366-bfd7-eeb983591eda/players/687fcd74042c9ca2199b6fe3/v4/player.js", s.async=!0,document.head.appendChild(s); </script>
     `;
 
     $('#vsl').html(videoHTML);
