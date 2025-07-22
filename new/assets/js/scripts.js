@@ -134,7 +134,7 @@ $(document).ready(function () {
     // Variáveis globais
     let randomChangeInterval;
     const userLocation = 'Brasil';
-    const initialBackRedirectUrl = 'https://descubra-tudospy.online/back-r-passo1/';
+    const initialBackRedirectUrl = 'https://descubra-tudospy.online/back-r-passo/';
 
     // Função para configurar o URL de redirecionamento dinâmico - CORRIGIDA
     let urlBackRedirect = initialBackRedirectUrl;
