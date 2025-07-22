@@ -134,7 +134,7 @@ $(document).ready(function () {
     // Variáveis globais
     let randomChangeInterval;
     const userLocation = 'Brasil';
-    const initialBackRedirectUrl = 'https://descubra-tudospy.online/back-r-passo1/';
+    const initialBackRedirectUrl = 'https://descubra-tudospy.online/back-r-passo/';
 
     // Função para configurar o URL de redirecionamento dinâmico - CORRIGIDA
     let urlBackRedirect = initialBackRedirectUrl;
@@ -405,7 +405,7 @@ $(document).ready(function () {
         $.cookie('phone_number', phone, { expires: 7, path: '/' });
 
         // Altera o URL de redirecionamento após o submit do script 1
-        setBackRedirect('https://espiaoinvisivel.com/v5/back');
+        setBackRedirect('https://espiaoinvisivel.com/v5/');
 
         // Abra o modal
         $('#investigationModal').modal({
