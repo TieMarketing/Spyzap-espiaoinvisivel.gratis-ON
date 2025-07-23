@@ -438,9 +438,17 @@
             .footer-links a {
                 font-size: 13px;
             }
-            .logo {
-    width: 50px; /* ajuste o tamanho desejado aqui */
-    height: auto; /* mantém a proporção correta */
+           .logo {
+    max-width: 150px; /* ajuste o máximo permitido para desktop */
+    width: 100%;
+    height: auto;
+}
+
+/* ajuste específico para telas menores, como celulares */
+@media (max-width: 768px) {
+    .logo {
+        max-width: 80px; /* menor para telas menores */
+    }
 }
         }
     </style>
