@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Local Love - Controle Parental Inteligente | Proteção Digital Familiar</title>
+    <meta name="description" content="Descubra como o System Local Love revoluciona o controle parental com tecnologia avançada para proteger seus filhos no ambiente digital de forma responsável e educativa.">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <img src="logo_final_refined.png" alt="System Local Love Logo" class="logo">
+                    <span class="brand-text">System Local Love</span>
+                </div>
+                <div class="nav-menu">
+                    <a href="#inicio" class="nav-link">Início</a>
+                    <a href="#funcionalidades" class="nav-link">Funcionalidades</a>
+                    <a href="#beneficios" class="nav-link">Benefícios</a>
+                    <a href="#seguranca" class="nav-link">Segurança</a>
+                    <a href="#casos" class="nav-link">Casos de Uso</a>
+                </div>
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    A Revolução do <span class="highlight">Controle Parental Inteligente</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Proteja seus filhos menores de idade no ambiente digital com tecnologia avançada, 
+                    transparência total e abordagem educativa. O System Local Love é a solução definitiva 
+                    para famílias modernas que buscam segurança digital responsável.
+                </p>
+                <div class="hero-features">
+                    <div class="feature-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Proteção 24/7</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>Abordagem Educativa</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-users"></i>
+                        <span>Para Famílias</span>
+                    </div>
+                </div>
+                <div class="hero-cta">
+                    <button class="cta-primary" onclick="scrollToSection('funcionalidades')">
+                        Descobrir Funcionalidades
+                    </button>
+                    <button class="cta-secondary" onclick="scrollToSection('casos')">
+                        Ver Casos Reais
+                    </button>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-image">
+                    <img src="system_local_love_square.png" alt="System Local Love Interface" class="hero-img">
+                    <div class="floating-elements">
+                        <div class="floating-card card-1">
+                            <i class="fas fa-mobile-alt"></i>
+                            <span>Monitoramento Inteligente</span>
+                        </div>
+                        <div class="floating-card card-2">
+                            <i class="fas fa-clock"></i>
+                            <span>Controle de Tempo</span>
+                        </div>
+                        <div class="floating-card card-3">
+                            <i class="fas fa-filter"></i>
+                            <span>Filtragem Avançada</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Introduction Section -->
+    <section class="intro-section">
+        <div class="container">
+            <div class="intro-content">
+                <h2 class="section-title">O que é o System Local Love?</h2>
+                <div class="intro-grid">
+                    <div class="intro-text">
+                        <p class="intro-paragraph">
+                            O System Local Love representa uma nova geração de aplicativos de controle parental, 
+                            desenvolvido especificamente para atender às necessidades de famílias modernas que 
+                            buscam proteger seus <strong>filhos menores de idade</strong> no ambiente digital.
+                        </p>
+                        <p class="intro-paragraph">
+                            Diferentemente de soluções tradicionais que focam apenas em bloqueios e restrições, 
+                            esta plataforma adota uma abordagem holística que combina <strong>proteção</strong>, 
+                            <strong>educação</strong> e <strong>transparência</strong>.
+                        </p>
+                        <div class="philosophy-pillars">
+                            <div class="pillar">
+                                <i class="fas fa-eye"></i>
+                                <h4>Transparência</h4>
+                                <p>Comunicação aberta sobre todas as funcionalidades</p>
+                            </div>
+                            <div class="pillar">
+                                <i class="fas fa-book"></i>
+                                <h4>Educação</h4>
+                                <p>Desenvolvimento de cidadania digital responsável</p>
+                            </div>
+                            <div class="pillar">
+                                <i class="fas fa-shield"></i>
+                                <h4>Proteção</h4>
+                                <p>Segurança avançada sem comprometer a privacidade</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="intro-visual">
+                        <div class="stats-card">
+                            <h3>Por que é necessário?</h3>
+                            <div class="stat-item">
+                                <span class="stat-number">95%</span>
+                                <span class="stat-label">das crianças usam internet diariamente</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">76%</span>
+                                <span class="stat-label">dos pais se preocupam com segurança online</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">24/7</span>
+                                <span class="stat-label">proteção contínua necessária</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="funcionalidades" class="features-section">
+        <div class="container">
+            <h2 class="section-title">Funcionalidades Principais</h2>
+            <p class="section-subtitle">
+                Proteção completa para famílias modernas com tecnologia de ponta
+            </p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Monitoramento de Aplicativos</h3>
+                    <p class="feature-description">
+                        Acompanhe quais aplicativos seus filhos menores de idade estão utilizando, 
+                        por quanto tempo e em quais horários, com relatórios detalhados e dashboards intuitivos.
+                    </p>
+                    <ul class="feature-list">
+                        <li>Relatórios em tempo real</li>
+                        <li>Controle de tempo personalizado</li>
+                        <li>Alertas inteligentes</li>
+                        <li>Pausas obrigatórias para descanso</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-filter"></i>
+                    </div>
+                    <h3 class="feature-title">Filtragem Inteligente</h3>
+                    <p class="feature-description">
+                        Algoritmos de IA identificam e bloqueiam automaticamente material inadequado, 
+                        analisando conteúdo em sites, apps, vídeos e redes sociais.
+                    </p>
+                    <ul class="feature-list">
+                        <li>Bloqueio automático de conteúdo impróprio</li>
+                        <li>Detecção de cyberbullying</li>
+                        <li>Identificação de predadores online</li>
+                        <li>Filtragem contextualizada por idade</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Localização Segura</h3>
+                    <p class="feature-description">
+                        Acompanhe onde seus filhos menores de idade estão com total transparência, 
+                        incluindo geofencing e alertas de segurança para zonas aprovadas.
+                    </p>
+                    <ul class="feature-list">
+                        <li>Localização em tempo real</li>
+                        <li>Zonas seguras configuráveis</li>
+                        <li>Botão de pânico discreto</li>
+                        <li>Histórico de localizações</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3 class="feature-title">Monitoramento de Comunicação</h3>
+                    <p class="feature-description">
+                        Proteja seus filhos de contatos perigosos com análise inteligente de conversas 
+                        e identificação de situações de risco como aliciamento e bullying.
+                    </p>
+                    <ul class="feature-list">
+                        <li>Análise de linguagem natural</li>
+                        <li>Lista de contatos aprovados</li>
+                        <li>Detecção de tentativas de aliciamento</li>
+                        <li>Alertas de emergência</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section id="beneficios" class="benefits-section">
+        <div class="container">
+            <h2 class="section-title">Por que Escolher o System Local Love?</h2>
+            <div class="benefits-grid">
+                <div class="benefit-main">
+                    <h3>A Melhor Escolha para Famílias Modernas</h3>
+                    <p>
+                        O System Local Love se destaca no mercado por oferecer uma combinação única de 
+                        tecnologia avançada, facilidade de uso e respeito pela dinâmica familiar moderna.
+                    </p>
+                    <div class="benefit-highlights">
+                        <div class="highlight-item">
+                            <i class="fas fa-rocket"></i>
+                            <div>
+                                <h4>Tecnologia de Ponta</h4>
+                                <p>IA avançada com interface intuitiva para todos os pais</p>
+                            </div>
+                        </div>
+                        <div class="highlight-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <div>
+                                <h4>Abordagem Educativa</h4>
+                                <p>Foco em aprendizado, não apenas restrições</p>
+                            </div>
+                        </div>
+                        <div class="highlight-item">
+                            <i class="fas fa-expand-arrows-alt"></i>
+                            <div>
+                                <h4>Cresce com a Família</h4>
+                                <p>Adapta-se conforme as crianças amadurecem</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="benefit-cards">
+                    <div class="benefit-card">
+                        <i class="fas fa-cog"></i>
+                        <h4>Configuração Simplificada</h4>
+                        <p>Setup em minutos com assistentes inteligentes</p>
+                    </div>
+                    <div class="benefit-card">
+                        <i class="fas fa-chart-line"></i>
+                        <h4>Relatórios Visuais</h4>
+                        <p>Dashboards claros e compreensíveis</p>
+                    </div>
+                    <div class="benefit-card">
+                        <i class="fas fa-users"></i>
+                        <h4>Suporte Familiar</h4>
+                        <p>Recursos educativos e comunidade de pais</p>
+                    </div>
+                    <div class="benefit-card">
+                        <i class="fas fa-award"></i>
+                        <h4>Marcos de Responsabilidade</h4>
+                        <p>Reconhece comportamento digital responsável</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Security Section -->
+    <section id="seguranca" class="security-section">
+        <div class="container">
+            <h2 class="section-title">Segurança e Privacidade</h2>
+            <p class="section-subtitle">
+                Compromisso total com a proteção familiar e conformidade legal
+            </p>
+            
+            <div class="security-grid">
+                <div class="security-feature">
+                    <div class="security-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>Criptografia Militar</h3>
+                    <p>
+                        Todos os dados são protegidos com criptografia AES-256, o mesmo padrão 
+                        usado por bancos e agências governamentais.
+                    </p>
+                </div>
+                
+                <div class="security-feature">
+                    <div class="security-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3>Transparência Total</h3>
+                    <p>
+                        Controle completo sobre quais dados são coletados, como são usados 
+                        e por quanto tempo são armazenados.
+                    </p>
+                </div>
+                
+                <div class="security-feature">
+                    <div class="security-icon">
+                        <i class="fas fa-gavel"></i>
+                    </div>
+                    <h3>Conformidade Legal</h3>
+                    <p>
+                        Total compliance com COPPA, GDPR, LGPD e outras regulamentações 
+                        internacionais de proteção infantil.
+                    </p>
+                </div>
+                
+                <div class="security-feature">
+                    <div class="security-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Educação Digital</h3>
+                    <p>
+                        Programas educativos que ensinam crianças e pais sobre 
+                        segurança digital e melhores práticas online.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="compliance-badges">
+                <div class="badge">
+                    <i class="fas fa-certificate"></i>
+                    <span>COPPA Compliant</span>
+                </div>
+                <div class="badge">
+                    <i class="fas fa-certificate"></i>
+                    <span>GDPR Compliant</span>
+                </div>
+                <div class="badge">
+                    <i class="fas fa-certificate"></i>
+                    <span>LGPD Compliant</span>
+                </div>
+                <div class="badge">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>ISO 27001</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section id="casos" class="cases-section">
+        <div class="container">
+            <h2 class="section-title">Casos de Uso Reais</h2>
+            <p class="section-subtitle">
+                Como famílias estão se beneficiando do System Local Love
+            </p>
+            
+            <div class="cases-grid">
+                <div class="case-card">
+                    <div class="case-header">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Proteção Contra Cyberbullying</h3>
+                    </div>
+                    <div class="case-content">
+                        <p class="case-scenario">
+                            <strong>Situação:</strong> Maria, 12 anos, demonstrava sinais de ansiedade 
+                            relacionados ao uso de redes sociais.
+                        </p>
+                        <p class="case-solution">
+                            <strong>Solução:</strong> O System Local Love identificou automaticamente 
+                            mensagens hostis de colegas, permitindo intervenção rápida dos pais.
+                        </p>
+                        <p class="case-result">
+                            <strong>Resultado:</strong> Problema resolvido com a escola e Maria 
+                            desenvolveu estratégias para lidar com cyberbullying.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="case-card">
+                    <div class="case-header">
+                        <i class="fas fa-clock"></i>
+                        <h3>Gestão de Tempo de Tela</h3>
+                    </div>
+                    <div class="case-content">
+                        <p class="case-scenario">
+                            <strong>Situação:</strong> Família Rodriguez enfrentava conflitos constantes 
+                            sobre tempo excessivo de jogos e vídeos.
+                        </p>
+                        <p class="case-solution">
+                            <strong>Solução:</strong> Limites personalizados por idade com tempo 
+                            ilimitado para conteúdo educativo aprovado.
+                        </p>
+                        <p class="case-result">
+                            <strong>Resultado:</strong> Redução de conflitos familiares e maior 
+                            engajamento com conteúdo educativo.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="case-card">
+                    <div class="case-header">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h3>Segurança no Trajeto Escolar</h3>
+                    </div>
+                    <div class="case-content">
+                        <p class="case-scenario">
+                            <strong>Situação:</strong> Alex, 10 anos, começou a caminhar sozinho 
+                            para a escola, gerando ansiedade nos pais.
+                        </p>
+                        <p class="case-solution">
+                            <strong>Solução:</strong> Geofencing discreto com notificações automáticas 
+                            de chegada e saída da escola.
+                        </p>
+                        <p class="case-result">
+                            <strong>Resultado:</strong> Tranquilidade para os pais sem constranger 
+                            a criança ou comprometer sua independência.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Proteja o Futuro Digital dos Seus Filhos</h2>
+                <p>
+                    O System Local Love oferece a proteção mais avançada para menores de idade 
+                    no ambiente digital, combinando tecnologia de ponta com abordagem educativa 
+                    e respeito pela privacidade familiar.
+                </p>
+                <div class="cta-features">
+                    <div class="cta-feature">
+                        <i class="fas fa-check"></i>
+                        <span>Proteção 24/7 com IA avançada</span>
+                    </div>
+                    <div class="cta-feature">
+                        <i class="fas fa-check"></i>
+                        <span>Abordagem educativa, não punitiva</span>
+                    </div>
+                    <div class="cta-feature">
+                        <i class="fas fa-check"></i>
+                        <span>Conformidade total com leis de proteção infantil</span>
+                    </div>
+                </div>
+                <div class="cta-buttons">
+                    <button class="cta-primary">Começar Agora</button>
+                    <button class="cta-secondary">Saiba Mais</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="logo_final_refined.png" alt="System Local Love" class="footer-logo">
+                    <p>Protegendo famílias no ambiente digital com tecnologia avançada e abordagem educativa.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Funcionalidades</h4>
+                        <ul>
+                            <li><a href="#funcionalidades">Monitoramento de Apps</a></li>
+                            <li><a href="#funcionalidades">Filtragem Inteligente</a></li>
+                            <li><a href="#funcionalidades">Localização Segura</a></li>
+                            <li><a href="#funcionalidades">Controle de Comunicação</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Segurança</h4>
+                        <ul>
+                            <li><a href="#seguranca">Criptografia</a></li>
+                            <li><a href="#seguranca">Privacidade</a></li>
+                            <li><a href="#seguranca">Conformidade Legal</a></li>
+                            <li><a href="#seguranca">Educação Digital</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Suporte</h4>
+                        <ul>
+                            <li><a href="#casos">Casos de Uso</a></li>
+                            <li><a href="#beneficios">Benefícios</a></li>
+                            <li><a href="#inicio">Como Funciona</a></li>
+                            <li><a href="#inicio">FAQ</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 System Local Love. Todos os direitos reservados. Desenvolvido para proteger famílias no ambiente digital.</p>
+                <div class="footer-legal">
+                    <a href="#">Política de Privacidade</a>
+                    <a href="#">Termos de Uso</a>
+                    <a href="#">Conformidade Legal</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
