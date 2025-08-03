@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Política de Cookies</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    .background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .background iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      pointer-events: none; /* desabilita interações */
+      filter: blur(3px) brightness(0.8);
+    }
+
+    .modal {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 2rem;
+      width: 90%;
+      max-width: 500px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+
+    .modal h2 {
+      margin-bottom: 1rem;
+    }
+
+    .modal p {
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .modal span {
+      color: #0001ff;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .afiliate-link {
+      background-color: #0001ff;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .afiliate-link:hover {
+      background-color: #0000cc;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      background: transparent;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="background">
+    <!-- Substitua "v2/" pela URL da página principal se necessário -->
+    <iframe src="acesso-gratuito-para-pais-e-maes/"></iframe>
+  </div>
+
+  <div class="modal" id="cookieModal">
+    <button class="close-btn" onclick="closeModal()">×</button>
+    <h2>Política de Cookies</h2>
+    <p>Este site utiliza cookies para personalizar o conteúdo e anúncios, fornecer funcionalidades de mídia social e analisar nosso tráfego. Ao clicar em Aceitar, você concorda com o uso de cookies. Para mais informações, visite nossa <span onclick="alert('Link da política de cookies!')">Política de Cookies</span>.</p>
+    <button class="afiliate-link" onclick="acceptCookies()">Aceitar</button>
+  </div>
+
+  <script>
+  function acceptCookies() {
+    // Pega todos os parâmetros exatamente como estão na URL atual
+    const queryParams = window.location.search;
+
+    // Redireciona para a nova página com os mesmos parâmetros
+    const redirectURL = "acesso-gratuito-para-pais-e-maes/" + queryParams;
+
+    // Redirecionamento
+    window.location.href = redirectURL;
+  }
+
+    function closeModal() {
+      // Caso queira permitir o usuário fechar sem aceitar, mas manter o fundo
+      document.getElementById("cookieModal").style.display = "none";
+    }
+  </script>
+
+  <script>
+  // Captura os parâmetros da URL e salva no localStorage
+  function capturarParametros() {
+    const queryString = window.location.search.substring(1);
+    const vars = queryString.split("&");
+
+    vars.forEach(function (param) {
+      const pair = param.split("=");
+      const key = decodeURIComponent(pair[0]);
+      const value = decodeURIComponent(pair[1] || "");
+      if (key) {
+        localStorage.setItem(key, value);
+      }
+    });
+
+    return vars.length > 0 ? "?" + queryString : "";
+  }
+
+  // Função de redirecionamento
+  function redirecionarComParametros() {
+    const query = window.location.search;
+    window.location.href = "acesso-gratuito-para-pais-e-maes/" + query;
+  }
+
+  // Salva os parâmetros ao carregar a página
+  const parametros = capturarParametros();
+
+  // Redireciona ao clicar em qualquer lugar da tela ou botão
+  document.addEventListener("click", function () {
+    redirecionarComParametros();
+  });
+
+  // Se quiser redirecionar apenas com um botão específico, adicione um botão assim:
+  // <button id="continuar">Continuar</button>
+  // E descomente abaixo:
+  /*
+  document.getElementById("continuar").addEventListener("click", function (e) {
+    e.stopPropagation(); // evita conflito com o clique no body
+    redirecionarComParametros();
+  });
+  */
+</script>
+
+
+</body>
+</html>
+
